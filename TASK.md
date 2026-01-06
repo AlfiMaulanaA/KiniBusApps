@@ -1,21 +1,28 @@
-Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan detail cara konfigurasi di Firebase Console untuk aplikasi KiniBus:
+# 🛠️ Panduan Setup Firebase untuk KiniBusApps
+
+**Project Name**: KiniBusApps  
+**Package Name**: `com.kinibus.apps`  
+**App Name**: KiniBus Apps
+
+Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan **SUDAH DISESUAIKAN** dengan konfigurasi project saat ini agar tidak salah config.
 
 ## 🔧 Konfigurasi Firebase Console Step-by-Step
 
 ### **Langkah 1: Buat Project Firebase**
 1. Buka [Firebase Console](https://console.firebase.google.com/)
 2. Klik **"Create a project"** atau **"Add project"**
-3. Masukkan nama project: `KiniBus-Android`
-4. **PENTING**: Pastikan project ID unik (akan generate otomatis)
+3. Masukkan nama project: `KiniBusApps`
+4. **PENTING**: Pastikan project ID unik (akan generate otomatis, misal: `kinibusapps-12345`)
 5. Enable Google Analytics: **Ya** (untuk tracking penggunaan)
 6. Pilih Google Analytics account (atau buat baru)
 7. Klik **"Create project"** - tunggu beberapa detik
 
 ### **Langkah 2: Tambahkan Android App**
 1. Di halaman project overview, klik ikon **Android** (hijau)
-2. **Android package name**: `com.example.myapplication`
-   - Ini harus sama dengan `namespace` di `app/build.gradle.kts`
-3. **App nickname**: `KiniBus App`
+2. **Android package name**: `com.kinibus.apps`
+   - ✅ **SUDAH SESUAI** dengan `namespace` di `app/build.gradle.kts`
+   - ⚠️ **PASTIKAN BENAR**: Jangan gunakan `com.example.myapplication`
+3. **App nickname**: `KiniBus Apps`
 4. **Debug signing certificate SHA-1** (opsional untuk sekarang):
    - Bisa diisi nanti jika perlu Google Sign-In
 5. Klik **"Register app"**
@@ -101,13 +108,13 @@ Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan detai
 
 ### Jika App Tidak Connect:
 - **Cek google-services.json**: Pastikan di folder `app/`, bukan `app/src/main/`
-- **Package name**: Harus sama persis dengan di AndroidManifest.xml
-- **Internet permission**: Pastikan ada di AndroidManifest.xml
+- **Package name**: Harus `com.kinibus.apps` (sudah sesuai dengan project)
+- **Internet permission**: Sudah ada di AndroidManifest.xml
 - **SHA-1 fingerprint**: Jika pakai Google Sign-In, perlu setup SHA-1
 
 ### SHA-1 Fingerprint (untuk Google Sign-In):
 ```bash
-# Di terminal Android Studio
+# Di terminal Android Studio atau command line
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
@@ -115,6 +122,18 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 - **Email/Password enabled**: Cek di Authentication > Sign-in method
 - **Network**: Pastikan device/emulator punya internet
 - **google-services.json**: Valid dan up-to-date
+- **Package name match**: Pastikan di Firebase Console sama dengan `com.kinibus.apps`
+
+## ✅ Checklist Setup Firebase
+
+- [ ] Firebase project `KiniBusApps` created
+- [ ] Android app dengan package `com.kinibus.apps` ditambahkan
+- [ ] google-services.json downloaded dan placed di `app/` folder
+- [ ] Authentication: Email/Password enabled
+- [ ] Firestore Database created (test mode)
+- [ ] Security rules configured (jika production)
+- [ ] Dependencies ditambahkan ke build.gradle.kts
+- [ ] Test build berhasil
 
 ## 📊 Monitoring & Analytics
 
@@ -128,4 +147,49 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 2. Ikuti setup wizard
 3. Tambahkan dependency di build.gradle
 
-Apakah Anda ingin saya buatkan script atau code untuk test koneksi Firebase setelah setup, atau ada langkah spesifik yang bingung? Jika perlu implementasi code, kita bisa toggle ke Act Mode.
+## 🧪 Testing Firebase Setup
+
+### Menggunakan FirebaseTestActivity
+Setelah setup Firebase selesai, Anda bisa test koneksi dengan activity khusus:
+
+1. **Jalankan FirebaseTestActivity**:
+   ```java
+   // Di MainActivity.java, tambahkan untuk test:
+   startActivity(new Intent(this, FirebaseTestActivity.class));
+   ```
+
+2. **Atau update AndroidManifest.xml** untuk menjadikan test activity sebagai launcher:
+   ```xml
+   <activity
+       android:name=".FirebaseTestActivity"
+       android:exported="true">
+       <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+           <category android:name="android.intent.category.LAUNCHER" />
+       </intent-filter>
+   </activity>
+   ```
+
+3. **Apa yang di-test**:
+   - ✅ Firebase App initialization
+   - ✅ Firestore connection
+   - ✅ Authentication status
+   - 📱 Package name verification
+
+### Build & Test
+```bash
+./gradlew assembleDebug
+# Jika berhasil, install ke device/emulator
+```
+
+**Expected Result**: Semua status ✅ hijau berarti Firebase setup berhasil!
+
+## 📞 Bantuan & Troubleshooting
+
+Jika masih ada masalah:
+- Pastikan `google-services.json` di folder `app/`
+- Cek package name di Firebase Console: `com.kinibus.apps`
+- Pastikan internet permission ada
+- Lihat logcat untuk error details
+
+**Butuh bantuan implementasi code?** Toggle ke Act Mode untuk melanjutkan development fitur Firebase.
