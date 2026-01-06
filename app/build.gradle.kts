@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    // Google Services plugin untuk Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,4 +42,17 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // Firebase dependencies
+    // Firebase BoM (Bill of Materials) - menggunakan versi 32.7.0 untuk kompatibilitas
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    // Firebase Authentication - untuk login/register
+    implementation("com.google.firebase:firebase-auth")
+
+    // Cloud Firestore - untuk database
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Firebase Analytics - optional untuk tracking
+    implementation("com.google.firebase:firebase-analytics")
 }

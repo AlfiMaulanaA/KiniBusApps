@@ -17,7 +17,7 @@ Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan **SUD
 6. Pilih Google Analytics account (atau buat baru)
 7. Klik **"Create project"** - tunggu beberapa detik
 
-### **Langkah 2: Tambahkan Android App**
+### **Langkah 2: Tambahkan Android App** DONE
 1. Di halaman project overview, klik ikon **Android** (hijau)
 2. **Android package name**: `com.kinibus.apps`
    - ✅ **SUDAH SESUAI** dengan `namespace` di `app/build.gradle.kts`
@@ -27,16 +27,64 @@ Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan **SUD
    - Bisa diisi nanti jika perlu Google Sign-In
 5. Klik **"Register app"**
 
-### **Langkah 3: Download google-services.json**
+### **Langkah 3: Download google-services.json** DONE
 1. Firebase akan generate file `google-services.json`
 2. Klik **"Download google-services.json"**
 3. **PENTING**: Pindahkan file ini ke folder `app/` di project Android Anda
    ```
    KiniBusApps/
    ├── app/
-   │   ├── google-services.json  ← TARUH DISINI
+   │   ├── google-services.json  ← TARUH DISINI ✅
    │   └── build.gradle.kts
    ```
+
+### **Langkah 3.1: Update Gradle Files untuk Firebase**
+
+#### **A. Update `build.gradle.kts` (Project/Root level)**
+Tambahkan google-services plugin:
+```kotlin
+// build.gradle.kts (di root project)
+plugins {
+    alias(libs.plugins.android.application) apply false
+    // Tambahkan baris ini:
+    id("com.google.gms.google-services") version "4.4.4" apply false
+}
+```
+
+#### **B. Update `app/build.gradle.kts` (App level)**
+Tambahkan plugins dan dependencies:
+```kotlin
+// app/build.gradle.kts
+plugins {
+    alias(libs.plugins.android.application)
+    // Tambahkan baris ini:
+    id("com.google.gms.google-services")
+}
+
+dependencies {
+    // Dependencies yang sudah ada...
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    // Tambahkan Firebase dependencies:
+    // Firebase BoM (Bill of Materials) - versi terbaru
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+
+    // Firebase Authentication
+    implementation("com.google.firebase:firebase-auth")
+
+    // Cloud Firestore
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Optional: Analytics
+    implementation("com.google.firebase:firebase-analytics")
+}
+```
 
 ### **Langkah 4: Enable Authentication**
 1. Di sidebar kiri, klik **"Authentication"**
