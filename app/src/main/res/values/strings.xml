@@ -1,28 +1,3 @@
 <resources>
-    <string name="app_name">RentCar-Apps</string>
-
-    <!-- Car Data -->
-    <string name="car_avanza">Avanza 2020 - MPV 7 seater, Tranmisi Manual, Bensin, 1.3L Engine</string>
-    <string name="price_avanza">Rp 350.000/hari - Garansi servis, Jaminan KTP</string>
-
-    <string name="car_xpander">Xpander - MPV 7 seater, Transmisi Otomatis, Bensin, 1.5L Engine</string>
-    <string name="price_xpander">Rp 450.000/hari - Garansi mesin, Jaminan SIM</string>
-
-    <string name="car_brio">Honda Brio - Hatchback, Transmisi Manual, Bensin, 1.2L Engine</string>
-    <string name="price_brio">Rp 250.000/hari - Irit bahan bakar, Garansi servis</string>
-
-    <string name="car_civic">Honda Civic - Sedan, Transmisi Otomatis, Bensin, 1.8L Engine</string>
-    <string name="price_civic">Rp 500.000/hari - Nyaman, Garansi full, Jaminan STNK</string>
-
-    <string name="car_toyota_etios">Toyota Etios - Sedan, Transmisi Manual, Bensin, 1.5L Engine</string>
-    <string name="price_toyota_etios">Rp 300.000/hari - Ekonomis, Garansi mesin</string>
-
-    <string name="car_mitsubishi_expander">Mitsubishi Expander - MPV 7 seater, Transmisi Manual, Bensin, 1.5L Engine</string>
-    <string name="price_mitsubishi_expander">Rp 425.000/hari - Tangguh, Garansi servis, Jaminan KTP</string>
-
-    <string name="car_honda_mobilio">Honda Mobilio - MPV 7 seater, Transmisi Manual, Bensin, 1.5L Engine</string>
-    <string name="price_honda_mobilio">Rp 375.000/hari - Luas, Garansi full, Jaminan SIM</string>
-
-    <string name="car_suzuki_ertiga">Suzuki Ertiga - MPV 7 seater, Transmisi Otomatis, Bensin, 1.4L Engine</string>
-    <string name="price_suzuki_ertiga">Rp 400.000/hari - Irrit, NYaman keluarga, Garansi servis</string>
+    <string name="app_name">My Application</string>
 </resources>
