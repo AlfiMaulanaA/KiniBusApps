@@ -11,14 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KiniBusApps">
+        <!-- Firebase Test Activity - MAIN LAUNCHER untuk testing -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".FirebaseTestActivity"
+            android:exported="true"
+            android:label="🔥 Firebase Test - KiniBus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- Main Activity - SECONDARY untuk development -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="KiniBus Main">
+            <!-- No MAIN/LAUNCHER - accessed programmatically -->
         </activity>
     </application>
 
