@@ -55,4 +55,12 @@ dependencies {
 
     // Firebase Analytics - optional untuk tracking
     implementation("com.google.firebase:firebase-analytics")
+
+    // ZXing untuk QR Code
+    implementation("com.google.zxing:core:3.4.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    // Dependensi standar lainnya
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
