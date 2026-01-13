@@ -1,17 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
-    // Google Services plugin untuk Firebase
+    id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace = "com.kinibus.apps"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.kinibus.apps"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -21,38 +21,25 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
-    // Firebase dependencies
-    // Firebase BoM (Bill of Materials) - menggunakan versi 32.7.0 untuk kompatibilitas
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-
-    // Firebase Authentication - untuk login/register
-    implementation("com.google.firebase:firebase-auth")
-
-    // Cloud Firestore - untuk database
-    implementation("com.google.firebase:firebase-firestore")
-
-    // Firebase Analytics - optional untuk tracking
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
