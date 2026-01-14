@@ -1,4 +1,4 @@
-package com.kinibus.apps;
+package com.kinibus.apps.views.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

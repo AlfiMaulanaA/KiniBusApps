@@ -1,4 +1,4 @@
-package com.kinibus.apps;
+package com.kinibus.apps.views.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.kinibus.apps.models.Bus;
+import com.kinibus.apps.repositories.BusRepository;
+import com.kinibus.apps.views.adapters.BusAdapter;
+import com.kinibus.apps.views.fragments.EditTripBottomSheetFragment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.kinibus.apps;
+package com.kinibus.apps.views.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import com.kinibus.apps.models.Bus;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
