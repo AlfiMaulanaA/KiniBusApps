@@ -55,4 +55,7 @@ dependencies {
 
     // Firebase Analytics - optional untuk tracking
     implementation("com.google.firebase:firebase-analytics")
+
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 }

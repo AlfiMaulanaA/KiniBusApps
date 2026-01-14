@@ -11,16 +11,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KiniBusApps">
-        <!-- Firebase Test Activity - MAIN LAUNCHER untuk testing -->
+        <!-- Welcome Activity - MAIN LAUNCHER -->
         <activity
-            android:name=".FirebaseTestActivity"
+            android:name=".views.activities.WelcomeActivity"
             android:exported="true"
-            android:label="🔥 Firebase Test - KiniBus">
+            android:label="KiniBus - Welcome"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Login Activity -->
+        <activity
+            android:name=".views.activities.LoginActivity"
+            android:exported="false"
+            android:label="KiniBus - Login"
+            android:screenOrientation="portrait" />
+
+        <!-- Register Activity -->
+        <activity
+            android:name=".views.activities.RegisterActivity"
+            android:exported="false"
+            android:label="KiniBus - Register"
+            android:screenOrientation="portrait" />
+
+        <!-- Dashboard Activity -->
+        <activity
+            android:name=".views.activities.DashboardActivity"
+            android:exported="false"
+            android:label="KiniBus Dashboard"
+            android:screenOrientation="portrait" />
+
+        <!-- Profile Activity -->
+        <activity
+            android:name=".views.activities.ProfileActivity"
+            android:exported="false"
+            android:label="Profile - KiniBus"
+            android:screenOrientation="portrait" />
+
+        <!-- Forgot Password Activity -->
+        <activity
+            android:name=".views.activities.ForgotPasswordActivity"
+            android:exported="false"
+            android:label="Reset Password - KiniBus"
+            android:screenOrientation="portrait" />
+
+        <!-- Firebase Test Activity - SECONDARY untuk testing connection -->
+        <activity
+            android:name=".FirebaseTestActivity"
+            android:exported="false"
+            android:label="Firebase Test"
+            android:screenOrientation="portrait" />
 
         <!-- Main Activity - SECONDARY untuk development -->
         <activity

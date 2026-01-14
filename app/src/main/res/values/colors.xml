@@ -7,4 +7,7 @@
     <color name="blue_primary">#FF000000</color>
     <color name="yellow_accent">#FF1976D2</color>
     <color name="gray_secondary">#FF757575</color>
+    <color name="gray">#FF9E9E9E</color>
+    <color name="gray_light">#FFE0E0E0</color>
+    <color name="green">#FF4CAF50</color>
 </resources>

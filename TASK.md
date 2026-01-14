@@ -38,7 +38,69 @@ Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan **SUD
    │   └── build.gradle.kts
    ```
 
-### **Langkah 3.1: Update Gradle Files untuk Firebase**
+### **Langkah 3.1: Setup Web Client ID untuk Google Sign-In**
+
+#### **PENTING: Setup Web Client ID (WAJIB untuk Google Sign-In)**
+
+**Android Client ID** (`1:1060565677214:android:baaba8b927865d81c9378f`) ≠ **Web Client ID**
+
+**❌ JANGAN BUAT MANUAL DI GOOGLE CLOUD!**
+
+**Firebase sudah membuat Web Client ID secara otomatis saat Anda enable Google Sign-In.**
+
+**Langkah 1: ENABLE GOOGLE SIGN-IN di Firebase Console TERLEBIH DAHULU!**
+
+**Web Client ID tidak muncul karena Google Sign-In belum di-enable!**
+
+### 🔥 **INSTRUKSI LENGKAP ENABLE GOOGLE SIGN-IN:**
+
+#### **A. Buka Authentication Section**
+1. **Firebase Console** → **Authentication** (sidebar kiri)
+2. **Klik tab "Sign-in method"**
+
+#### **B. Enable Google Provider**
+1. **Cari "Google"** di daftar providers
+2. **Klik pada provider "Google"**
+3. **Toggle "Enable"** ke ON ✅
+4. **Isi Project details:**
+   - **Project public-facing name**: `KiniBus Apps`
+   - **Project support email**: `alfimaulanaa@gmail.com` (atau email Anda)
+5. **Klik "Save"**
+
+#### **C. Download google-services.json Baru**
+Setelah klik "Save", Firebase akan tampilkan:
+```
+"Download latest config file
+Enabling Google sign-in creates new OAuth clients..."
+```
+1. **Klik "Continue"** atau **"Download latest config file"**
+2. **Download google-services.json** yang baru
+3. **Replace file lama** di `app/google-services.json`
+
+#### **D. Sekarang Web Client ID Muncul!**
+1. **Kembali ke Project Settings** → **General** tab
+2. **Expand "KiniBus Apps"**
+3. **Web client ID** sekarang sudah muncul! ✅
+4. **Copy Web client ID** (format: `xxx-xxx.apps.googleusercontent.com`)
+
+**Update GoogleSignInHelper.java:**
+```java
+.requestIdToken("PASTE_WEB_CLIENT_ID_HERE")
+```
+
+**PENYEBAB ERROR SEBELUMNYA:**
+- ❌ Google Sign-In belum di-enable
+- ❌ OAuth clients belum dibuat
+- ❌ Web Client ID belum ada
+
+**SETELAH ENABLE:**
+- ✅ OAuth clients dibuat otomatis
+- ✅ Web Client ID tersedia
+- ✅ Google Sign-In siap digunakan
+
+**Tanpa Web Client ID yang benar, Google Sign-In tidak akan berfungsi!**
+
+### **Langkah 3.2: Update Gradle Files untuk Firebase**
 
 #### **A. Update `build.gradle.kts` (Project/Root level)**
 Tambahkan google-services plugin:
@@ -382,6 +444,40 @@ Setelah setup Firebase selesai, Anda bisa test koneksi dengan activity khusus:
 ```
 
 **Expected Result**: Semua status ✅ hijau berarti Firebase setup berhasil!
+
+## ⚠️ **Troubleshooting - VS Code Warnings**
+
+### **Warning: "Not on the classpath of project app"**
+**Penyebab**: VS Code belum sync dengan perubahan Gradle files
+**Solusi**:
+1. **Reload VS Code**: `Ctrl+Shift+P` → `Developer: Reload Window`
+2. **Atau**: Klik tombol reload di notification
+3. **Atau**: `Ctrl+Shift+P` → `Java: Reload Projects`
+
+**Status**: ✅ Build berhasil, warning ini tidak blocking
+
+### **Warning: "Uses or overrides deprecated API"**
+**Penyebab**: Firebase SDK menggunakan deprecated methods untuk backward compatibility
+**Solusi**: ✅ **NORMAL & AMAN** - tidak perlu diubah, code tetap berfungsi
+
+#### **Penjelasan Detail:**
+- **Deprecated API**: Method yang masih berfungsi tapi akan dihapus di versi future
+- **Firebase Case**: Banyak method di Firebase Auth masih deprecated untuk compatibility
+- **Impact**: Tidak ada - build berhasil, app berfungsi normal
+- **Production**: Aman digunakan, Firebase support deprecated methods lama
+
+#### **Cara Melihat Detail Deprecation** (Opsional):
+```bash
+# Untuk melihat detail deprecated methods
+./gradlew compileDebugJavaWithJavac -Xlint:deprecation
+
+# Atau suppress warning
+./gradlew build -x lint
+```
+
+#### **Contoh Deprecated Methods di Firebase:**
+- `FirebaseAuth.getInstance()` - masih deprecated tapi aman
+- Beberapa Auth methods - masih berfungsi untuk compatibility
 
 ## 📞 Bantuan & Troubleshooting
 

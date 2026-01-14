@@ -1,31 +1,78 @@
-# Integrasi Firebase untuk KiniBus Android App
+# 🛠️ Panduan Setup Firebase untuk KiniBusApps
 
-Panduan lengkap untuk mengganti SQLite lokal dengan Firebase (Firestore + Authentication) pada aplikasi KiniBus.
+**Project Name**: KiniBusApps  
+**Package Name**: `com.kinibus.apps`  
+**App Name**: KiniBus Apps
 
-## 📋 Daftar Isi
-- [Persiapan](#-persiapan)
-- [Setup Firebase Project](#-setup-firebase-project)
-- [Konfigurasi Android Project](#-konfigurasi-android-project)
-- [Implementasi Authentication](#-implementasi-authentication)
-- [Setup Firestore Database](#-setup-firestore-database)
-- [Model Data & Repository](#-model-data--repository)
-- [Implementasi CRUD Operations](#-implementasi-crud-operations)
-- [Real-time Updates](#-real-time-updates)
-- [Testing & Deployment](#-testing--deployment)
-- [Troubleshooting](#-troubleshooting)
+Berdasarkan instruksi di `FIREBASE_INTEGRATION.md`, berikut adalah panduan **SUDAH DISESUAIKAN** dengan konfigurasi project saat ini agar tidak salah config.
 
-## 🔧 Persiapan
+## 🔧 Konfigurasi Firebase Console Step-by-Step
 
-### Prasyarat
-- Android Studio versi Arctic Fox atau lebih baru
-- Google account untuk Firebase Console
-- Project KiniBus sudah ter-setup
+### **Langkah 1: Buat Project Firebase**
+1. Buka [Firebase Console](https://console.firebase.google.com/)
+2. Klik **"Create a project"** atau **"Add project"**
+3. Masukkan nama project: `KiniBusApps`
+4. **PENTING**: Pastikan project ID unik (akan generate otomatis, misal: `kinibusapps-12345`)
+5. Enable Google Analytics: **Ya** (untuk tracking penggunaan)
+6. Pilih Google Analytics account (atau buat baru)
+7. Klik **"Create project"** - tunggu beberapa detik
 
-### Dependencies yang Dibutuhkan
-Tambahkan ke `app/build.gradle.kts`:
+### **Langkah 2: Tambahkan Android App** DONE
+1. Di halaman project overview, klik ikon **Android** (hijau)
+2. **Android package name**: `com.kinibus.apps`
+   - ✅ **SUDAH SESUAI** dengan `namespace` di `app/build.gradle.kts`
+   - ⚠️ **PASTIKAN BENAR**: Jangan gunakan `com.example.myapplication`
+3. **App nickname**: `KiniBus Apps`
+4. **Debug signing certificate SHA-1** (opsional untuk sekarang):
+   - Bisa diisi nanti jika perlu Google Sign-In
+5. Klik **"Register app"**
+
+### **Langkah 3: Download google-services.json** DONE
+1. Firebase akan generate file `google-services.json`
+2. Klik **"Download google-services.json"**
+3. **PENTING**: Pindahkan file ini ke folder `app/` di project Android Anda
+   ```
+   KiniBusApps/
+   ├── app/
+   │   ├── google-services.json  ← TARUH DISINI ✅
+   │   └── build.gradle.kts
+   ```
+
+### **Langkah 3.1: Update Gradle Files untuk Firebase**
+
+#### **A. Update `build.gradle.kts` (Project/Root level)**
+Tambahkan google-services plugin:
 ```kotlin
+// build.gradle.kts (di root project)
+plugins {
+    alias(libs.plugins.android.application) apply false
+    // Tambahkan baris ini:
+    id("com.google.gms.google-services") version "4.4.4" apply false
+}
+```
+
+#### **B. Update `app/build.gradle.kts` (App level)**
+Tambahkan plugins dan dependencies:
+```kotlin
+// app/build.gradle.kts
+plugins {
+    alias(libs.plugins.android.application)
+    // Tambahkan baris ini:
+    id("com.google.gms.google-services")
+}
+
 dependencies {
-    // Firebase BOM
+    // Dependencies yang sudah ada...
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    // Tambahkan Firebase dependencies:
+    // Firebase BoM (Bill of Materials) - versi terbaru
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
 
     // Firebase Authentication
@@ -34,590 +81,314 @@ dependencies {
     // Cloud Firestore
     implementation("com.google.firebase:firebase-firestore")
 
-    // Firebase UI (optional, untuk auth UI)
-    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
-
-    // Google Play Services (untuk auth)
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    // Optional: Analytics
+    implementation("com.google.firebase:firebase-analytics")
 }
 ```
 
-## 🚀 Setup Firebase Project
+### **Langkah 4: Enable Authentication**
+1. Di sidebar kiri, klik **"Authentication"**
+2. Pergi ke tab **"Sign-in method"**
+3. Enable **"Email/Password"**:
+   - Klik pada provider "Email/Password"
+   - Toggle **"Enable"**
+   - Klik **"Save"**
+4. **Opsional - Enable Google Sign-In**:
+   - Klik "Google"
+   - Toggle Enable
+   - **Project public-facing name**: `KiniBus Apps` (nama app yang terlihat user)
+   - **Project support email**: `alfimaulanaa@gmail.com` (email support untuk OAuth consent screen)
+   - Klik "Save"
+   - **PENTING**: Setelah enable Google Sign-In, Firebase akan membuat OAuth clients baru
+   - **LANGKAH TAMBAHAN**: Download ulang `google-services.json` dan replace yang lama
+   - **INSTRUKSI KHUSUS**: Setelah enable Google Sign-In, ikuti langkah berikut:
 
-### Langkah 1: Buat Firebase Project
-1. Buka [Firebase Console](https://console.firebase.google.com/)
-2. Klik "Create a project" atau "Add project"
-3. Masukkan nama project: `KiniBus-Android`
-4. Enable Google Analytics (opsional)
-5. Pilih Google Analytics account
-6. Klik "Create project"
+### **Langkah 4.1: Download Ulang google-services.json (SETELAH ENABLE GOOGLE SIGN-IN)**
+1. **Setelah klik "Save"** pada Google Sign-In, Firebase akan menampilkan pesan:
+   ```
+   "Download latest configuration file
+   Enabling Google sign-in for the first time creates new OAuth clients..."
+   ```
 
-### Langkah 2: Tambahkan Android App
-1. Di project overview, klik ikon Android
-2. Masukkan package name: `com.example.myapplication`
-3. Masukkan app nickname: `KiniBus App`
-4. Download `google-services.json`
-5. Pindahkan file ke folder `app/`
+2. **Klik "Continue"** atau **"Download latest configuration file"**
 
-### Langkah 3: Enable Services
-1. **Authentication**:
-   - Pergi ke Authentication > Sign-in method
-   - Enable Email/Password
-   - Enable Google (opsional)
+3. **Provide SHA-1 fingerprint**:
+   - Di terminal, jalankan:
+   ```bash
+   keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+   ```
+   - **SHA-1 fingerprint untuk project ini**: `06:EE:A3:60:28:92:78:C8:5C:F2:12:5D:50:8A:A4:C7:1C:74:9A:0A`
+   - **MENU FIREBASE CONSOLE**:
+     1. Klik ikon ⚙️ **"Project settings"** (di sidebar kiri atas)
+     2. Klik tab **"Your apps"**
+     3. Cari app **"KiniBus Apps"** (com.kinibus.apps)
+     4. Di bagian **"SHA certificate fingerprints"**, klik **"Add fingerprint"**
+     5. Paste SHA-1: `06:EE:A3:60:28:92:78:C8:5C:F2:12:5D:50:8A:A4:C7:1C:74:9A:0A`
+     6. Klik **"Save"**
+   - ✅ **SUDAH DIDAPATKAN**: Copy dari output command di atas
 
-2. **Firestore Database**:
-   - Pergi ke Firestore Database
-   - Klik "Create database"
-   - Pilih "Start in test mode" (untuk development)
-   - Pilih lokasi: `asia-southeast1` (Singapore)
+4. **Download google-services.json yang baru**:
+   - Klik "Download google-services.json"
+   - File ini sekarang berisi konfigurasi OAuth untuk Google Sign-In
 
-## ⚙️ Konfigurasi Android Project
+5. **Replace file lama**:
+   - Pindahkan file baru ke `app/google-services.json` (replace yang lama)
+   - Pastikan file terbaru sudah di folder yang benar
 
-### Langkah 1: Update build.gradle.kts (Project level)
-```kotlin
-plugins {
-    // ... existing plugins
-    id("com.google.gms.google-services") version "4.4.0" apply false
-}
+6. **Rebuild project**:
+   ```bash
+   ./gradlew clean build
+   ```
+
+   **CATATAN**: Jika muncul warning "build file has been changed and may need reload":
+   - Di Android Studio: **File → Sync Project with Gradle Files**
+   - Di VS Code: **Reload Window** atau **Developer: Reload Window**
+   - Tunggu sampai sync selesai (ada progress bar di bawah)
+
+**PENTING**: Tanpa SHA-1 fingerprint dan google-services.json terbaru, Google Sign-In tidak akan berfungsi!
+
+### **Langkah 5: Setup Firestore Database**
+1. Di sidebar kiri, klik **"Firestore Database"**
+2. Klik **"Create database"**
+3. **Pilih Edition Database**:
+   - **Standard Edition** ✅ (REKOMENDASI untuk KiniBus)
+     - Cocok untuk development dan small-medium apps
+     - Free tier: 1GB storage, 50K reads/day
+     - Fitur lengkap untuk mobile apps
+   - **Enterprise Edition** (untuk production skala besar)
+     - Untuk enterprise dengan traffic tinggi
+     - Fitur advanced: Multi-region, SLA 99.999%
+     - Biaya lebih tinggi
+4. Pilih **"Start in test mode"** (untuk development)
+   - **Catatan**: Untuk production, pilih "Start in production mode" dan setup security rules
+5. Pilih lokasi database: **asia-southeast1 (Singapore)** - lebih dekat untuk Indonesia
+6. Klik **"Done"**
+
+**CATATAN PENTING**: Di Firestore, **TIDAK PERLU** membuat table/collection secara manual!
+- Collection akan dibuat otomatis saat pertama kali menulis data
+- Table schema ditentukan oleh kode aplikasi (model classes)
+- Data awal bisa ditambahkan melalui kode atau Firebase Console
+
+### **Langkah 6: Setup Security Rules (Production)**
+1. Di Firestore Database, klik tab **"Rules"**
+2. **UNTUK TESTING**: Gunakan rules test mode sederhana dulu:
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       // Allow all operations for testing
+       match /{document=**} {
+         allow read, write: if true;
+       }
+     }
+   }
+   ```
+   *Rules ini untuk development testing. Ganti dengan rules aman untuk production.*
+
+3. **ATAU gunakan rules production** (jika sudah siap):
+   ```
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       // Users dapat read/write data mereka sendiri
+       match /users/{userId} {
+         allow read, write: if request.auth != null && request.auth.uid == userId;
+       }
+
+       // Semua orang bisa read buses, hanya admin yang bisa write
+       match /buses/{busId} {
+         allow read: if true;
+         allow write: if request.auth != null && request.auth.token.admin == true;
+       }
+
+       // Users dapat read/write booking mereka sendiri
+       match /penyewaan/{penyewaanId} {
+         allow read, write: if request.auth != null &&
+           resource.data.userId == /databases/$(database)/documents/users/$(request.auth.uid);
+       }
+
+       // E-tickets read/write berdasarkan penyewaan
+       match /eTickets/{ticketId} {
+         allow read, write: if request.auth != null;
+       }
+     }
+   }
+   ```
+4. **Pilih Mode Rules**:
+   - **Development & Test**: Allow semua read/write (untuk development)
+   - **Publish**: Gunakan custom rules yang telah dibuat (untuk production)
+5. **Untuk testing**: Klik **"Publish"** ✅ dengan rules test mode
+
+### **Langkah 7: Konfigurasi App Check (Security)**
+1. Di sidebar kiri, klik **"App Check"**
+2. Klik **"Get started"**
+3. **Register App untuk App Check**:
+   - Akan muncul pesan: *"Start protecting access to APIs by registering apps with App Check. Registration identifies incoming requests from your app."*
+   - Klik tombol **"Register"** atau **"Add app"** untuk app **"KiniBus Apps"**
+4. **Pilih Protection Method**:
+   - **Play Integrity** ✅ (PILIH INI - recommended untuk Android)
+     - Verifikasi integritas app menggunakan Google Play Services
+     - Protection terbaik untuk production
+   - Klik **"Register"**
+
+5. **Isi SHA-256 Fingerprint** (REQUIRED untuk Play Integrity):
+   - Firebase akan minta SHA-256 fingerprint setelah pilih Play Integrity
+   - **SHA-256 fingerprint untuk project ini**:
+     ```
+     45:A1:BB:5C:87:32:24:8E:59:B7:47:F4:AB:12:1D:0F:E5:79:1A:EF:11:7B:E6:B9:BB:F5:33:99:7A:15:41:FD
+     ```
+   - Copy dari output `keytool` command di atas
+   - Paste ke field SHA-256 di Firebase Console
+
+5. **Konfigurasi Token Settings** (Opsional):
+   - **Token time to live**: Default 1 jam (3600 detik)
+     - Waktu token App Check valid
+     - Recommended: 1 jam untuk balance security vs performance
+   - **Advanced settings**: Default saja untuk development
+
+6. **Konfirmasi Setup**:
+   - App Check akan mengaktifkan protection untuk:
+     - ✅ Cloud Firestore (pencegah spam reads/writes)
+     - ✅ Firebase Authentication (pencegah abuse auth)
+     - ✅ Firebase Realtime Database (jika ada)
+   - Status akan berubah ke **"Enforced"** atau **"Unenforced"** (development mode)
+
+7. **Catatan untuk Development**:
+   - Di development: App Check dalam mode **"Unenforced"** (tidak block request)
+   - Di production: Bisa enable **"Enforce"** untuk strict security
+
+### **Langkah 8: Test Koneksi**
+1. **Buka Project Settings**:
+   - Di Firebase Console, klik ikon ⚙️ **"Project settings"** (roda gigi) di sidebar kiri **ATAS**
+   - Atau klik project name di top bar → **"Project settings"**
+
+2. **Tab "General"** - cek:
+   - Project name: `KiniBusApps`
+   - Package name: `com.kinibus.apps`
+   - google-services.json status
+
+3. **Tab "Your apps"** - pastikan:
+   - Android app terdaftar dengan status **"Registered"** ✅
+   - Package name: `com.kinibus.apps`
+   - SHA-1 fingerprint sudah terdaftar
+
+4. **Buka Firestore Database** untuk monitor data:
+   - Klik **"Firestore Database"** di sidebar kiri
+   - **Tab "Data"**: Kosong ✅ (normal - akan terisi saat app menulis data)
+   - **Tab "Rules"**: Sudah ada custom security rules ✅
+   - **Tab "Indexes"**: Default indexes (akan bertambah otomatis)
+
+### **🎉 SETUP FIREBASE 100% COMPLETE & TESTED!**
+
+**Semua komponen Firebase sudah ter-setup dan ter-test dengan SUKSES:**
+- ✅ Project: `KiniBusApps`
+- ✅ Authentication: Email/Password + Google Sign-In
+- ✅ Firestore: Database connected & accessible
+- ✅ App Check: Play Integrity protection aktif
+- ✅ google-services.json: Latest version verified
+- ✅ **FirebaseTestActivity**: All tests PASSED ✅
+
+**STATUS AKHIR:**
+```
+🔄 Testing Firebase Connection...
+✅ Firebase App: [DefaultFirebaseApp]
+✅ Firestore: Connected successfully
+ℹ️ Auth: No user logged in (normal for test)
+📱 Package: com.kinibus.apps
+🎉 Firebase Test Complete!
 ```
 
-### Langkah 2: Update build.gradle.kts (App level)
-```kotlin
-plugins {
-    // ... existing plugins
-    id("com.google.gms.google-services")
-}
+**LANGKAH SELANJUTNYA - READY UNTUK DEVELOPMENT:**
+1. ✅ **Firebase Connection Confirmed** - Siap digunakan
+2. 🔄 **Implementasi Fitur KiniBus** - Mulai coding!
+3. 🔄 **Push ke GitHub** - Version control
 
-dependencies {
-    // ... existing dependencies
+## ⚠️ Troubleshooting Konfigurasi
 
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
+### Jika App Tidak Connect:
+- **Cek google-services.json**: Pastikan di folder `app/`, bukan `app/src/main/`
+- **Package name**: Harus `com.kinibus.apps` (sudah sesuai dengan project)
+- **Internet permission**: Sudah ada di AndroidManifest.xml
+- **SHA-1 fingerprint**: Jika pakai Google Sign-In, perlu setup SHA-1
 
-    // Optional: Firebase UI
-    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
-}
+### SHA-1 Fingerprint (untuk Google Sign-In):
+```bash
+# Di terminal Android Studio atau command line
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
-### Langkah 3: Update AndroidManifest.xml
-Tambahkan permissions:
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Internet permission untuk Firebase -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+### Jika Authentication Gagal:
+- **Email/Password enabled**: Cek di Authentication > Sign-in method
+- **Network**: Pastikan device/emulator punya internet
+- **google-services.json**: Valid dan up-to-date
+- **Package name match**: Pastikan di Firebase Console sama dengan `com.kinibus.apps`
 
-    <application>
-        <!-- ... existing config -->
-    </application>
-</manifest>
+## ✅ Checklist Setup Firebase
+
+- [ ] Firebase project `KiniBusApps` created
+- [ ] Android app dengan package `com.kinibus.apps` ditambahkan
+- [ ] google-services.json downloaded dan placed di `app/` folder
+- [ ] Authentication: Email/Password enabled
+- [ ] Firestore Database created (test mode)
+- [ ] Security rules configured (jika production)
+- [ ] Dependencies ditambahkan ke build.gradle.kts
+- [ ] Test build berhasil
+
+## 📊 Monitoring & Analytics
+
+### Setup Analytics:
+1. Di sidebar kiri, klik **"Analytics"**
+2. Lihat dashboard untuk user engagement
+3. Setup custom events untuk tracking fitur app
+
+### Crashlytics (untuk error reporting):
+1. Di sidebar kiri, klik **"Crashlytics"**
+2. Ikuti setup wizard
+3. Tambahkan dependency di build.gradle
+
+## 🧪 Testing Firebase Setup
+
+### Menggunakan FirebaseTestActivity
+Setelah setup Firebase selesai, Anda bisa test koneksi dengan activity khusus:
+
+1. **Jalankan FirebaseTestActivity**:
+   ```java
+   // Di MainActivity.java, tambahkan untuk test:
+   startActivity(new Intent(this, FirebaseTestActivity.class));
+   ```
+
+2. **Atau update AndroidManifest.xml** untuk menjadikan test activity sebagai launcher:
+   ```xml
+   <activity
+       android:name=".FirebaseTestActivity"
+       android:exported="true">
+       <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+           <category android:name="android.intent.category.LAUNCHER" />
+       </intent-filter>
+   </activity>
+   ```
+
+3. **Apa yang di-test**:
+   - ✅ Firebase App initialization
+   - ✅ Firestore connection
+   - ✅ Authentication status
+   - 📱 Package name verification
+
+### Build & Test
+```bash
+./gradlew assembleDebug
+# Jika berhasil, install ke device/emulator
 ```
 
-## 🔐 Implementasi Authentication
+**Expected Result**: Semua status ✅ hijau berarti Firebase setup berhasil!
 
-### Buat FirebaseAuthHelper Class
-```java
-package com.example.myapplication.helpers;
+## 📞 Bantuan & Troubleshooting
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.AuthResult;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.OnCompleteListener;
+Jika masih ada masalah:
+- Pastikan `google-services.json` di folder `app/`
+- Cek package name di Firebase Console: `com.kinibus.apps`
+- Pastikan internet permission ada
+- Lihat logcat untuk error details
 
-public class FirebaseAuthHelper {
-    private FirebaseAuth mAuth;
-
-    public FirebaseAuthHelper() {
-        mAuth = FirebaseAuth.getInstance();
-    }
-
-    // Register user
-    public Task<AuthResult> registerUser(String email, String password) {
-        return mAuth.createUserWithEmailAndPassword(email, password);
-    }
-
-    // Login user
-    public Task<AuthResult> loginUser(String email, String password) {
-        return mAuth.signInWithEmailAndPassword(email, password);
-    }
-
-    // Get current user
-    public FirebaseUser getCurrentUser() {
-        return mAuth.getCurrentUser();
-    }
-
-    // Logout
-    public void logout() {
-        mAuth.signOut();
-    }
-
-    // Password reset
-    public Task<Void> resetPassword(String email) {
-        return mAuth.sendPasswordResetEmail(email);
-    }
-}
-```
-
-### Update LoginActivity.java
-```java
-public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuthHelper authHelper;
-    private EditText emailEdit, passwordEdit;
-    private Button loginBtn, registerBtn;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        authHelper = new FirebaseAuthHelper();
-        initializeViews();
-
-        loginBtn.setOnClickListener(v -> loginUser());
-        registerBtn.setOnClickListener(v -> registerUser());
-    }
-
-    private void initializeViews() {
-        emailEdit = findViewById(R.id.email_edit);
-        passwordEdit = findViewById(R.id.password_edit);
-        loginBtn = findViewById(R.id.login_btn);
-        registerBtn = findViewById(R.id.register_btn);
-    }
-
-    private void loginUser() {
-        String email = emailEdit.getText().toString().trim();
-        String password = passwordEdit.getText().toString().trim();
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        authHelper.loginUser(email, password)
-            .addOnCompleteListener(this, task -> {
-                if (task.isSuccessful()) {
-                    // Login berhasil
-                    FirebaseUser user = authHelper.getCurrentUser();
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    // Navigate ke Dashboard
-                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-                    finish();
-                } else {
-                    // Login gagal
-                    Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-    }
-
-    private void registerUser() {
-        // Implementasi registrasi mirip dengan login
-        // Gunakan authHelper.registerUser()
-    }
-}
-```
-
-## 🗄️ Setup Firestore Database
-
-### Struktur Database Firestore
-```
-/kiniBus/
-├── users/{userId}
-│   ├── email: string
-│   ├── nama: string
-│   ├── createdAt: timestamp
-│   └── profileImage: string (optional)
-├── buses/
-│   ├── {busId}/
-│   │   ├── nama: string
-│   │   ├── jenis: string
-│   │   ├── kapasitas: number
-│   │   ├── hargaPerHari: number
-│   │   ├── gambar: string
-│   │   └── tersedia: boolean
-├── penyewaan/
-│   ├── {penyewaanId}/
-│   │   ├── userId: reference
-│   │   ├── busId: reference
-│   │   ├── tanggalSewa: timestamp
-│   │   ├── durasi: number
-│   │   ├── totalBiaya: number
-│   │   └── status: string ("pending", "confirmed", "completed", "cancelled")
-└── eTickets/
-    ├── {ticketId}/
-    │   ├── penyewaanId: reference
-    │   ├── qrCode: string
-    │   ├── pdfUrl: string
-    │   └── createdAt: timestamp
-```
-
-### Buat FirestoreHelper Class
-```java
-package com.example.myapplication.helpers;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.android.gms.tasks.Task;
-
-public class FirestoreHelper {
-    private FirebaseFirestore db;
-
-    public FirestoreHelper() {
-        db = FirebaseFirestore.getInstance();
-    }
-
-    // Collection references
-    public CollectionReference getUsersCollection() {
-        return db.collection("users");
-    }
-
-    public CollectionReference getBusesCollection() {
-        return db.collection("buses");
-    }
-
-    public CollectionReference getPenyewaanCollection() {
-        return db.collection("penyewaan");
-    }
-
-    public CollectionReference getETicketsCollection() {
-        return db.collection("eTickets");
-    }
-
-    // Generic methods
-    public Task<Void> addDocument(String collection, String documentId, Object data) {
-        return db.collection(collection).document(documentId).set(data);
-    }
-
-    public Task<Void> updateDocument(String collection, String documentId, Object data) {
-        return db.collection(collection).document(documentId).update(data);
-    }
-
-    public Task<Void> deleteDocument(String collection, String documentId) {
-        return db.collection(collection).document(documentId).delete();
-    }
-
-    public Task<DocumentSnapshot> getDocument(String collection, String documentId) {
-        return db.collection(collection).document(documentId).get();
-    }
-
-    public Task<QuerySnapshot> getCollection(String collection) {
-        return db.collection(collection).get();
-    }
-}
-```
-
-## 📊 Model Data & Repository
-
-### Buat Model Classes
-```java
-// User.java
-package com.example.myapplication.models;
-
-import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.ServerTimestamp;
-import java.util.Date;
-
-public class User {
-    @DocumentId
-    private String id;
-    private String email;
-    private String nama;
-    private String profileImage;
-
-    @ServerTimestamp
-    private Date createdAt;
-
-    // Constructors, getters, setters
-    public User() {}
-
-    public User(String email, String nama) {
-        this.email = email;
-        this.nama = nama;
-    }
-
-    // Getters and setters...
-}
-
-// Bus.java
-package com.example.myapplication.models;
-
-import com.google.firebase.firestore.DocumentId;
-
-public class Bus {
-    @DocumentId
-    private String id;
-    private String nama;
-    private String jenis;
-    private int kapasitas;
-    private double hargaPerHari;
-    private String gambar;
-    private boolean tersedia;
-
-    // Constructors, getters, setters
-    public Bus() {}
-
-    public Bus(String nama, String jenis, int kapasitas, double hargaPerHari, String gambar) {
-        this.nama = nama;
-        this.jenis = jenis;
-        this.kapasitas = kapasitas;
-        this.hargaPerHari = hargaPerHari;
-        this.gambar = gambar;
-        this.tersedia = true;
-    }
-
-    // Getters and setters...
-}
-
-// Penyewaan.java
-package com.example.myapplication.models;
-
-import com.google.firebase.firestore.DocumentId;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.ServerTimestamp;
-import java.util.Date;
-
-public class Penyewaan {
-    @DocumentId
-    private String id;
-    private DocumentReference userId;
-    private DocumentReference busId;
-    private Date tanggalSewa;
-    private int durasi;
-    private double totalBiaya;
-    private String status;
-
-    @ServerTimestamp
-    private Date createdAt;
-
-    // Constructors, getters, setters
-    public Penyewaan() {}
-
-    public Penyewaan(DocumentReference userId, DocumentReference busId,
-                     Date tanggalSewa, int durasi, double totalBiaya) {
-        this.userId = userId;
-        this.busId = busId;
-        this.tanggalSewa = tanggalSewa;
-        this.durasi = durasi;
-        this.totalBiaya = totalBiaya;
-        this.status = "pending";
-    }
-
-    // Getters and setters...
-}
-```
-
-### Buat Repository Classes
-```java
-// UserRepository.java
-package com.example.myapplication.repositories;
-
-import com.example.myapplication.helpers.FirestoreHelper;
-import com.example.myapplication.models.User;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.QuerySnapshot;
-
-public class UserRepository {
-    private FirestoreHelper firestoreHelper;
-
-    public UserRepository() {
-        firestoreHelper = new FirestoreHelper();
-    }
-
-    public Task<Void> createUser(String userId, User user) {
-        return firestoreHelper.addDocument("users", userId, user);
-    }
-
-    public Task<Void> updateUser(String userId, User user) {
-        return firestoreHelper.updateDocument("users", userId, user);
-    }
-
-    public Task<QuerySnapshot> getAllUsers() {
-        return firestoreHelper.getCollection("users");
-    }
-}
-
-// BusRepository.java
-package com.example.myapplication.repositories;
-
-import com.example.myapplication.helpers.FirestoreHelper;
-import com.example.myapplication.models.Bus;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.QuerySnapshot;
-
-public class BusRepository {
-    private FirestoreHelper firestoreHelper;
-
-    public BusRepository() {
-        firestoreHelper = new FirestoreHelper();
-    }
-
-    public Task<Void> addBus(Bus bus) {
-        DocumentReference docRef = firestoreHelper.getBusesCollection().document();
-        bus.setId(docRef.getId());
-        return docRef.set(bus);
-    }
-
-    public Task<QuerySnapshot> getAllBuses() {
-        return firestoreHelper.getBusesCollection().get();
-    }
-
-    public Task<QuerySnapshot> getAvailableBuses() {
-        return firestoreHelper.getBusesCollection()
-            .whereEqualTo("tersedia", true)
-            .get();
-    }
-
-    public Task<Void> updateBus(String busId, Bus bus) {
-        return firestoreHelper.updateDocument("buses", busId, bus);
-    }
-}
-```
-
-## 🔄 Implementasi CRUD Operations
-
-### Contoh Penggunaan di Activity
-```java
-// Di DashboardActivity.java
-public class DashboardActivity extends AppCompatActivity {
-    private BusRepository busRepository;
-    private RecyclerView busRecyclerView;
-    private BusAdapter busAdapter;
-    private List<Bus> busList;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        busRepository = new BusRepository();
-        initializeViews();
-        loadBuses();
-    }
-
-    private void initializeViews() {
-        busRecyclerView = findViewById(R.id.bus_recycler_view);
-        busRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        busList = new ArrayList<>();
-        busAdapter = new BusAdapter(busList);
-        busRecyclerView.setAdapter(busAdapter);
-    }
-
-    private void loadBuses() {
-        busRepository.getAllBuses()
-            .addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    busList.clear();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Bus bus = document.toObject(Bus.class);
-                        busList.add(bus);
-                    }
-                    busAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(this, "Failed to load buses", Toast.LENGTH_SHORT).show();
-                }
-            });
-    }
-}
-```
-
-## 📡 Real-time Updates
-
-### Implementasi Real-time Listener
-```java
-// Real-time listener untuk buses
-private void listenToBusUpdates() {
-    firestoreHelper.getBusesCollection()
-        .addSnapshotListener((value, error) -> {
-            if (error != null) {
-                Log.w(TAG, "Listen failed.", error);
-                return;
-            }
-
-            busList.clear();
-            for (DocumentSnapshot doc : value) {
-                Bus bus = doc.toObject(Bus.class);
-                busList.add(bus);
-            }
-            busAdapter.notifyDataSetChanged();
-        });
-}
-```
-
-## 🧪 Testing & Deployment
-
-### Testing
-1. **Unit Test**: Test repository classes
-2. **Integration Test**: Test Firebase connection
-3. **UI Test**: Test authentication flow
-
-### Deployment
-1. Update security rules di Firestore
-2. Enable App Check untuk security
-3. Monitor usage di Firebase Console
-
-### Contoh Firestore Security Rules
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Users can read/write their own data
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // Anyone can read buses, only admin can write
-    match /buses/{busId} {
-      allow read: if true;
-      allow write: if request.auth != null && request.auth.token.admin == true;
-    }
-
-    // Users can read/write their own bookings
-    match /penyewaan/{penyewaanId} {
-      allow read, write: if request.auth != null &&
-        resource.data.userId == /databases/$(database)/documents/users/$(request.auth.uid);
-    }
-  }
-}
-```
-
-## 🔧 Troubleshooting
-
-### Masalah Umum & Solusi
-
-1. **Authentication Failed**
-   - Pastikan google-services.json sudah benar
-   - Check internet connection
-   - Verify SHA-1 fingerprint di Firebase Console
-
-2. **Firestore Permission Denied**
-   - Update Firestore security rules
-   - Pastikan user sudah login
-
-3. **Real-time Updates Not Working**
-   - Check Firestore rules untuk read access
-   - Ensure network connectivity
-
-4. **Build Failed**
-   - Clean project: Build > Clean Project
-   - Invalidate caches: File > Invalidate Caches / Restart
-
-### Debug Tips
-- Gunakan Firebase Console untuk monitor real-time data
-- Enable debug logging: `FirebaseFirestore.setLoggingEnabled(true);`
-- Test dengan Firebase Emulator untuk development
-
-## 📚 Referensi
-- [Firebase Android Documentation](https://firebase.google.com/docs/android/setup)
-- [Firestore Android Guide](https://firebase.google.com/docs/firestore/quickstart)
-- [Firebase Authentication](https://firebase.google.com/docs/auth/android/start)
-
----
-
-**Catatan**: Instruksi ini mengasumsikan familiarity dengan Android development. Untuk pemula, ikuti tutorial Firebase Android secara bertahap.
+**Butuh bantuan implementasi code?** Toggle ke Act Mode untuk melanjutkan development fitur Firebase.
