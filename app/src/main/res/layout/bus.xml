@@ -95,6 +95,17 @@
                     android:checked="true"
                     android:textStyle="bold"
                     android:text="Semua"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp"
                     app:checkedIcon="@drawable/check_24px" />
 
                 <com.google.android.material.chip.Chip
@@ -104,6 +115,17 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Executive"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp"
                     app:checkedIcon="@drawable/check_24px" />
 
                 <com.google.android.material.chip.Chip
@@ -113,6 +135,17 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Business"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp"
                     app:checkedIcon="@drawable/check_24px" />
 
                 <com.google.android.material.chip.Chip
@@ -122,6 +155,17 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Economic"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp"
                     app:checkedIcon="@drawable/check_24px" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -139,6 +183,7 @@
                 android:id="@+id/chip_group_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
                 app:selectionRequired="true"
                 app:singleSelection="true">
 
@@ -148,18 +193,43 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:textStyle="bold"
+                    android:enabled="true"
                     android:text="Cheapest"
-                    app:checkedIcon="@drawable/check_24px" />
+                    android:textStyle="bold"
+                    app:checkedIcon="@drawable/checked_currency_exchange_24px"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIcon="@drawable/currency_exchange_24px"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="10dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_earliest"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Earliest"
-                    app:checkedIcon="@drawable/check_24px" />
+                    android:textStyle="bold"
+                    app:checkedIcon="@drawable/checked_schedule_24px"
+                    app:checkedIconEnabled="true"
+                    app:checkedIconVisible="true"
+                    app:chipBackgroundColor="#FFFFFF"
+                    app:chipCornerRadius="10dp"
+                    app:chipEndPadding="6dp"
+                    app:chipIcon="@drawable/schedule_24px"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:chipStartPadding="10dp"
+                    app:chipStrokeColor="#878787"
+                    app:chipStrokeWidth="1.2dp" />
 
             </com.google.android.material.chip.ChipGroup>
 
