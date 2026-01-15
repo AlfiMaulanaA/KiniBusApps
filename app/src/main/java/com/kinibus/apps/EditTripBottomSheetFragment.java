@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -25,7 +26,7 @@ import java.util.TimeZone;
 public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
 
     public interface OnTripDetailsChangedListener {
-        void onTripDetailsChanged(String origin, String destination, Date date, String passengers);
+        void onTripDetailsChanged(String origin, String destination, Date date, String passengers, boolean isRoundTrip);
     }
 
     private OnTripDetailsChangedListener mListener;
@@ -34,15 +35,17 @@ public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
     private AutoCompleteTextView actvOrigin, actvDestination, actvPassenger;
     private ImageView ivSwap;
     private Button btnSearchTicket;
+    private MaterialButtonToggleGroup toggleTripType;
     private Date selectedDate;
 
-    public static EditTripBottomSheetFragment newInstance(String origin, String destination, long date, String passengers) {
+    public static EditTripBottomSheetFragment newInstance(String origin, String destination, long date, String passengers, boolean isRoundTrip) {
         EditTripBottomSheetFragment fragment = new EditTripBottomSheetFragment();
         Bundle args = new Bundle();
         args.putString("ARG_ORIGIN", origin);
         args.putString("ARG_DESTINATION", destination);
         args.putLong("ARG_DATE", date);
         args.putString("ARG_PASSENGERS", passengers);
+        args.putBoolean("ARG_IS_ROUND_TRIP", isRoundTrip);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,6 +70,7 @@ public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
         actvPassenger = view.findViewById(R.id.actv_passenger);
         ivSwap = view.findViewById(R.id.iv_swap);
         btnSearchTicket = view.findViewById(R.id.btn_search_ticket);
+        toggleTripType = view.findViewById(R.id.toggle_trip_type);
         return view;
     }
 
@@ -94,6 +98,12 @@ public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
             actvDestination.setText(getArguments().getString("ARG_DESTINATION"), false);
             actvPassenger.setText(getArguments().getString("ARG_PASSENGERS"), false);
             updateDate(new Date(getArguments().getLong("ARG_DATE")));
+            boolean isRoundTrip = getArguments().getBoolean("ARG_IS_ROUND_TRIP");
+            if (isRoundTrip) {
+                toggleTripType.check(R.id.btn_round_trip);
+            } else {
+                toggleTripType.check(R.id.btn_one_way);
+            }
         } else {
             updateDate(new Date());
         }
@@ -108,8 +118,9 @@ public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
             String origin = actvOrigin.getText().toString();
             String destination = actvDestination.getText().toString();
             String passengers = actvPassenger.getText().toString();
+            boolean isRoundTrip = toggleTripType.getCheckedButtonId() == R.id.btn_round_trip;
 
-            mListener.onTripDetailsChanged(origin, destination, selectedDate, passengers);
+            mListener.onTripDetailsChanged(origin, destination, selectedDate, passengers, isRoundTrip);
             dismiss();
         });
     }

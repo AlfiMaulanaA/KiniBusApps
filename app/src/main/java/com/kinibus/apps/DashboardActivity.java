@@ -16,6 +16,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity implements
     private String destination = "Lw. Panjang";
     private Date tripDate = getInitialDate();
     private String passengers = "1 Orang";
+    private boolean isRoundTrip = false;
     private String activeClassFilter = "all";
     private String activeSort = "cheapest";
 
@@ -76,7 +78,7 @@ public class DashboardActivity extends AppCompatActivity implements
 
         findViewById(R.id.btn_edit).setOnClickListener(v -> {
             EditTripBottomSheetFragment bottomSheet = EditTripBottomSheetFragment.newInstance(
-                    origin, destination, tripDate.getTime(), passengers);
+                    origin, destination, tripDate.getTime(), passengers, isRoundTrip);
             bottomSheet.show(getSupportFragmentManager(), "EditTripBottomSheetFragment");
         });
 
@@ -118,8 +120,14 @@ public class DashboardActivity extends AppCompatActivity implements
                 .whereEqualTo("keberangkatan", origin)
                 .whereEqualTo("tujuan", destination);
         
-        if (!"all".equals(activeClassFilter)) {
-            query = query.whereEqualTo("jenis", activeClassFilter);
+        if (isRoundTrip) {
+            query = query.whereIn("jenis", Arrays.asList("BUSINESS", "EXECUTIVE"));
+            chipGroupClass.setVisibility(View.GONE);
+        } else {
+            chipGroupClass.setVisibility(View.VISIBLE);
+            if (!"all".equals(activeClassFilter)) {
+                query = query.whereEqualTo("jenis", activeClassFilter);
+            }
         }
 
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -145,6 +153,9 @@ public class DashboardActivity extends AppCompatActivity implements
                     Bus bus = document.toObject(Bus.class);
                     if (bus != null) {
                         bus.setId(document.getId());
+                        if (isRoundTrip) {
+                            bus.setHarga(bus.getHarga() + 100000);
+                        }
                         busList.add(bus);
                     }
                 }
@@ -172,11 +183,12 @@ public class DashboardActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onTripDetailsChanged(String origin, String destination, Date date, String passengers) {
+    public void onTripDetailsChanged(String origin, String destination, Date date, String passengers, boolean isRoundTrip) {
         this.origin = origin;
         this.destination = destination;
         this.tripDate = date;
         this.passengers = passengers;
+        this.isRoundTrip = isRoundTrip;
 
         updateToolbarText(passengers);
         listenForBusUpdates();
