@@ -56,7 +56,6 @@ public class DashboardActivity extends AppCompatActivity implements
 
     private Date getInitialDate() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        cal.set(2026, Calendar.JANUARY, 13);
         return cal.getTime();
     }
 
