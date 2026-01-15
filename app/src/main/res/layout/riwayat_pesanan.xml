@@ -118,11 +118,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="E-Tiket Terbit"
+                        android:background="@drawable/bg_chip_unselected"
                         android:paddingHorizontal="20dp"
                         android:paddingVertical="8dp"
-                        android:background="@drawable/bg_chip_unselected"
-                        android:textColor="@color/gray_text"/>
+                        android:text="E-Tiket Terbit"
+                        android:textColor="@color/gray_text" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -383,7 +383,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Lihat E-Tiket"
+                            android:text="Download E-Tiket"
                             android:backgroundTint="@color/blue_light_bg"
                             android:textColor="@color/blue_primary"
                             android:textAllCaps="false"
