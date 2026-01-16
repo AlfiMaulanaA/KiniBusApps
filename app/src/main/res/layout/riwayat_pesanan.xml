@@ -152,6 +152,7 @@
                             android:src="@drawable/ic_clock"
                             app:tint="@color/orange_text" />
                         <TextView
+                            android:id="@+id/tvStatusHeader"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -380,6 +381,7 @@
                             android:layout_marginEnd="8dp"/>
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_download_pdf"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
