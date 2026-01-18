@@ -1,0 +1,26 @@
+{
+  "name": "kinibus-seeder",
+  "version": "1.0.0",
+  "description": "Database seeding script for KiniBusApps Firebase Firestore",
+  "main": "seed_database.js",
+  "scripts": {
+    "seed": "node seed_database.js",
+    "clear": "node -e \"require('./seed_database.js').clearExistingData()\"",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "firebase",
+    "firestore",
+    "seeding",
+    "kinibus",
+    "database"
+  ],
+  "author": "KiniBus Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^11.11.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

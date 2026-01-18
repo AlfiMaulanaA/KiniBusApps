@@ -1,4 +1,4 @@
-package com.kinibus.apps;
+package com.kinibus.apps.repositories;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -12,6 +12,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
+import com.kinibus.apps.models.Bus;
+import com.kinibus.apps.helpers.FirestoreHelper;
 
 public class BusRepository {
     private final FirestoreHelper firestoreHelper;

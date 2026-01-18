@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import com.kinibus.apps.R;
 import com.kinibus.apps.models.Bus;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -21,7 +22,6 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
 
     private final List<Bus> busList;
     private final OnBusItemClickListener listener;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     public BusAdapter(List<Bus> busList, OnBusItemClickListener listener) {
         this.busList = busList;
@@ -46,7 +46,7 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
         return (busList != null) ? busList.size() : 0;
     }
 
-    class BusViewHolder extends RecyclerView.ViewHolder {
+    public static class BusViewHolder extends RecyclerView.ViewHolder {
         TextView tvBusName, tvClass, tvPrice, tvDepartureTime, tvDepartureLoc, tvArrivalTime, tvArrivalLoc, tvDuration, tvSeatsLeft;
 
         public BusViewHolder(@NonNull View itemView) {
@@ -65,11 +65,14 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
         public void bind(final Bus bus, final OnBusItemClickListener listener) {
             tvBusName.setText(bus.getNama() != null ? bus.getNama() : "");
             tvClass.setText(bus.getJenis() != null ? bus.getJenis().toUpperCase() : "");
-            tvPrice.setText(String.format(Locale.getDefault(), "Rp %,d", bus.getHarga()));
+            tvPrice.setText(itemView.getContext().getString(R.string.price_format, bus.getHarga()));
 
-            String departureTime = "--:--";
-            String arrivalTime = "--:--";
-            String duration = "-";
+            String departureTime = itemView.getContext().getString(R.string.default_time);
+            String arrivalTime = itemView.getContext().getString(R.string.default_time);
+            String duration = itemView.getContext().getString(R.string.default_dash);
+
+            // Create SimpleDateFormat with current locale for proper localization
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
             if (bus.getWaktuKeberangkatan() != null) {
                 departureTime = timeFormat.format(bus.getWaktuKeberangkatan());
@@ -82,25 +85,25 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
                 long diffInMillis = bus.getWaktuTiba().getTime() - bus.getWaktuKeberangkatan().getTime();
                 long hours = TimeUnit.MILLISECONDS.toHours(diffInMillis);
                 long minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60;
-                duration = String.format(Locale.getDefault(), "%dh %02dm", hours, minutes);
+                duration = itemView.getContext().getString(R.string.duration_format, hours, minutes);
             }
 
             tvDepartureTime.setText(departureTime);
             tvArrivalTime.setText(arrivalTime);
             tvDuration.setText(duration);
-            tvDepartureLoc.setText(bus.getKeberangkatan() != null ? bus.getKeberangkatan() : "-");
-            tvArrivalLoc.setText(bus.getTujuan() != null ? bus.getTujuan() : "-");
+            tvDepartureLoc.setText(bus.getKeberangkatan() != null ? bus.getKeberangkatan() : itemView.getContext().getString(R.string.default_dash));
+            tvArrivalLoc.setText(bus.getTujuan() != null ? bus.getTujuan() : itemView.getContext().getString(R.string.default_dash));
 
             if (bus.isTersedia() && bus.getKursiTersedia() > 0) {
-                tvSeatsLeft.setText(String.format(Locale.getDefault(), "%d seats left", bus.getKursiTersedia()));
+                tvSeatsLeft.setText(itemView.getContext().getString(R.string.seats_left_format, bus.getKursiTersedia()));
                 tvSeatsLeft.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_orange_dark));
                 itemView.setAlpha(1.0f);
                 itemView.setOnClickListener(v -> listener.onBusItemClicked(bus));
             } else {
                 if (!bus.isTersedia()) {
-                    tvSeatsLeft.setText("Not Available");
+                    tvSeatsLeft.setText(itemView.getContext().getString(R.string.not_available));
                 } else {
-                    tvSeatsLeft.setText("Sold Out");
+                    tvSeatsLeft.setText(itemView.getContext().getString(R.string.sold_out));
                 }
                 tvSeatsLeft.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_red_dark));
                 itemView.setAlpha(0.5f);

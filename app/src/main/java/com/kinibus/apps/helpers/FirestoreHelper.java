@@ -1,4 +1,4 @@
-package com.kinibus.apps;
+package com.kinibus.apps.helpers;
 
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.FirebaseFirestore;

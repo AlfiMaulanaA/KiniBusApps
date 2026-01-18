@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">KiniBus Apps</string>
     <string name="round_icon_mask">M50,0 A50,50 0 1,1 50,100 A50,50 0 1,1 50,0</string>
+
+    <!-- Bus Adapter Strings -->
+    <string name="seats_left_format">%1$d seats left</string>
+    <string name="not_available">Not Available</string>
+    <string name="sold_out">Sold Out</string>
+    <string name="price_format">Rp %1$,d</string>
+    <string name="duration_format">%1$dh %2$02dm</string>
+    <string name="default_time">--:--</string>
+    <string name="default_dash">-</string>
+
+    <!-- Dashboard Strings -->
+    <string name="select_route_prompt">Pilih Rute Perjalanan</string>
+    <string name="select_date_prompt">Pilih Tanggal</string>
+    <string name="empty_state_title">Pilih Rute Perjalanan</string>
+    <string name="empty_state_message">Tekan tombol edit untuk memilih tujuan dan tanggal perjalanan Anda</string>
 </resources>

@@ -262,4 +262,11 @@ public class AuthRepository {
     public String getCurrentUserEmail() {
         return authHelper.getCurrentUserEmail();
     }
+
+    /**
+     * Get current user ID
+     */
+    public String getCurrentUserId() {
+        return authHelper.getCurrentUserId();
+    }
 }

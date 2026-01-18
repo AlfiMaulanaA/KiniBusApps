@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.kinibus.apps.MainActivity;
 import com.kinibus.apps.R;
 import com.kinibus.apps.helpers.GoogleSignInHelper;
 import com.kinibus.apps.repositories.AuthRepository;
@@ -287,13 +288,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Navigate to dashboard after successful authentication
+     * Navigate to main screen with bottom navigation after successful authentication
      */
     private void navigateToMainScreen() {
         Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show();
 
-        // Navigate to Dashboard
-        Intent intent = new Intent(this, DashboardActivity.class);
+        // Navigate to MainActivity with bottom navigation
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

@@ -1,7 +1,8 @@
-package com.kinibus.apps;
+package com.kinibus.apps.models;
 
 import com.google.firebase.firestore.DocumentId;
 import java.util.Date;
+import java.util.List;
 
 public class Bus {
     @DocumentId
@@ -17,6 +18,10 @@ public class Bus {
     private String durasi;
     private long kursiTersedia;
     private boolean tersedia;
+    private List<String> fasilitas;
+    private String deskripsi;
+    private Date createdAt;
+    private Date updatedAt;
 
     public Bus() {}
 
@@ -58,5 +63,13 @@ public class Bus {
     public void setKursiTersedia(long kursiTersedia) { this.kursiTersedia = kursiTersedia; }
     public boolean isTersedia() { return tersedia; }
     public void setTersedia(boolean tersedia) { this.tersedia = tersedia; }
+    public List<String> getFasilitas() { return fasilitas; }
+    public void setFasilitas(List<String> fasilitas) { this.fasilitas = fasilitas; }
+    public String getDeskripsi() { return deskripsi; }
+    public void setDeskripsi(String deskripsi) { this.deskripsi = deskripsi; }
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    public Date getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
 
 }

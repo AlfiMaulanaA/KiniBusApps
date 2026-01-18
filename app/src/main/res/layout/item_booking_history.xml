@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Route and Date Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_route_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jakarta"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    tools:text="Jakarta" />
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/swap_vertical_circle_24px"
+                    android:layout_marginHorizontal="8dp"
+                    android:contentDescription="Arrow"
+                    app:tint="@color/gray" />
+
+                <TextView
+                    android:id="@+id/tv_route_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yogyakarta"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    tools:text="Yogyakarta" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aktif"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_primary"
+                android:background="@drawable/status_badge"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                tools:text="Aktif" />
+
+        </LinearLayout>
+
+        <!-- Bus Details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/airport_shuttle_24px"
+                android:contentDescription="Bus icon"
+                app:tint="@color/blue_primary"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_bus_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bus Executive AC"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                tools:text="Bus Executive AC" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 150.000"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                tools:text="Rp 150.000" />
+
+        </LinearLayout>
+
+        <!-- Date and Time -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/date_range_24px"
+                android:contentDescription="Date icon"
+                app:tint="@color/gray"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_date_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sen, 15 Jan 2025 • 08:00 WIB"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                tools:text="Sen, 15 Jan 2025 • 08:00 WIB" />
+
+        </LinearLayout>
+
+        <!-- Seats Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/person_24px"
+                android:contentDescription="Person icon"
+                app:tint="@color/gray"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tv_seats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2 Kursi (A1, A2)"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                tools:text="2 Kursi (A1, A2)" />
+
+            <TextView
+                android:id="@+id/tv_booking_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: ABC123"
+                android:textSize="12sp"
+                android:textColor="@color/gray_light"
+                tools:text="ID: ABC123" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

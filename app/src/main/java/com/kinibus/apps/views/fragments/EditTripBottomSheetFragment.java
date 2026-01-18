@@ -17,6 +17,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
+import com.kinibus.apps.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -115,8 +116,8 @@ public class EditTripBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void showDatePicker() {
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now());
+        // Allow all dates for testing (remove date validation)
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
 
         long selection = MaterialDatePicker.todayInUtcMilliseconds();
         if (selectedDate != null) {
