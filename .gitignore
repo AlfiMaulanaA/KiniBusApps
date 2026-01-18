@@ -75,6 +75,12 @@ fastlane/readme.md
 .vscode/
 .history/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Operating Systems
 .DS_Store
 .DS_Store?
@@ -112,3 +118,4 @@ crashlytics-build.properties
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+serviceAccountKey.json
