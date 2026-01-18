@@ -1,12 +1,10 @@
 package com.kinibus.apps;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,42 +22,49 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.riwayat_detail); // Layout XML 1 Anda
+        setContentView(R.layout.riwayat_detail);
 
         // Ambil data dari Intent
         ticket = (Ticket) getIntent().getSerializableExtra("TICKET_DATA");
 
         if (ticket != null) {
             setupViews();
+        } else {
+            Toast.makeText(this, "Data tiket tidak ditemukan", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
     private void setupViews() {
-        // Binding Views (Sesuaikan ID dengan XML layout 1 Anda)
+        // Setup Text Views
         ((TextView) findViewById(R.id.tv_start_time)).setText(ticket.getJam_berangkat());
         ((TextView) findViewById(R.id.tv_end_time)).setText(ticket.getJam_sampai());
         ((TextView) findViewById(R.id.tv_start_loc)).setText(ticket.getRute_awal());
         ((TextView) findViewById(R.id.tv_end_loc)).setText(ticket.getRute_akhir());
 
-        // Nama Bus & Jenis (Menyesuaikan struktur XML Anda yang mungkin perlu sedikit penyesuaian ID)
-        TextView tvBusName = findViewById(R.id.tv_bus_name_placeholder); // Tambahkan ID ini di XML jika belum ada
+        TextView tvBusName = findViewById(R.id.tv_bus_name_placeholder);
         if(tvBusName != null) tvBusName.setText(ticket.getBus_nama());
 
-        // QR Code Generation menggunakan API (Simple way)
-        ImageView qrImage = findViewById(R.id.img_qr_code); // Pastikan ada ID ini di ImageView QR
+        // QR Code Generation
+        ImageView qrImage = findViewById(R.id.img_qr_code);
         String qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + ticket.getRef_code();
 
         Glide.with(this)
                 .load(qrUrl)
-                .placeholder(R.drawable.ic_launcher_background) // ganti dengan placeholder drawable
+                .placeholder(R.drawable.ic_launcher_background)
                 .into(qrImage);
 
-        // Tombol Download PDF (Tambahkan button di XML layout detail Anda jika belum ada)
+        // Tombol Download PDF
         Button btnDownload = findViewById(R.id.btn_download_pdf);
-        btnDownload.setOnClickListener(v -> generatePDF());
+        if (btnDownload != null) {
+            btnDownload.setOnClickListener(v -> generatePDF());
+        }
 
         // Back Button
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+        ImageView btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
     }
 
     private void generatePDF() {
@@ -71,49 +76,29 @@ public class DetailActivity extends AppCompatActivity {
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
-        // Styling PDF
+        // Styling PDF Sederhana
         paint.setTextSize(20);
         paint.setFakeBoldText(true);
-        canvas.drawText("E-TIKET PERJALANAN", 180, 50, paint);
+        canvas.drawText("E-TIKET PERJALANAN KINIBUS", 140, 50, paint);
 
         paint.setTextSize(14);
         paint.setFakeBoldText(false);
         canvas.drawText("Ref Code: " + ticket.getRef_code(), 50, 90, paint);
-
         canvas.drawLine(50, 100, 545, 100, paint);
 
         int yPos = 130;
-        paint.setTextSize(16);
-        paint.setFakeBoldText(true);
-        canvas.drawText("Detail Penumpang", 50, yPos, paint);
-
-        paint.setTextSize(14);
-        paint.setFakeBoldText(false);
-        yPos += 25;
         canvas.drawText("Nama: " + ticket.getPenumpang(), 50, yPos, paint);
-        yPos += 20;
-        canvas.drawText("Kursi: " + ticket.getSeat(), 50, yPos, paint);
-
-        yPos += 40;
-        paint.setTextSize(16);
-        paint.setFakeBoldText(true);
-        canvas.drawText("Detail Bus", 50, yPos, paint);
-
-        paint.setTextSize(14);
-        paint.setFakeBoldText(false);
         yPos += 25;
         canvas.drawText("Bus: " + ticket.getBus_nama() + " (" + ticket.getJenis() + ")", 50, yPos, paint);
-        yPos += 20;
-        canvas.drawText("Tanggal: " + ticket.getTanggal_sewa(), 50, yPos, paint);
-        yPos += 20;
+        yPos += 25;
         canvas.drawText("Rute: " + ticket.getRute_awal() + " -> " + ticket.getRute_akhir(), 50, yPos, paint);
-        yPos += 20;
-        canvas.drawText("Jam: " + ticket.getJam_berangkat() + " - " + ticket.getJam_sampai(), 50, yPos, paint);
+        yPos += 25;
+        canvas.drawText("Waktu: " + ticket.getTanggal_sewa() + " (" + ticket.getJam_berangkat() + ")", 50, yPos, paint);
 
         pdfDocument.finishPage(page);
 
         // Simpan File
-        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), ticket.getRef_code() + ".pdf");
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Tiket-" + ticket.getRef_code() + ".pdf");
         try {
             pdfDocument.writeTo(new FileOutputStream(file));
             Toast.makeText(this, "PDF Disimpan di: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
