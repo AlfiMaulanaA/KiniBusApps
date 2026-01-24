@@ -8,16 +8,17 @@
     android:background="@color/white"
     tools:context=".views.activities.DashboardActivity">
 
-    <!-- Top App Bar -->
+    <!-- Top App Bar - Enhanced -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
         android:background="@color/white"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:elevation="4dp">
 
-        <!-- Logo and Title -->
+        <!-- Logo and Title - Enhanced -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,42 +26,100 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
+            <!-- Enhanced Logo with Better Icon -->
             <LinearLayout
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/logo_background"
                 android:gravity="center"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="12dp"
+                android:elevation="2dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_launcher_foreground"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/airport_shuttle_24px"
                     android:contentDescription="Bus icon"
-                    app:tint="@color/blue_primary" />
+                    app:tint="@color/white" />
 
             </LinearLayout>
 
-            <TextView
+            <!-- Enhanced Title with Better Typography -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="KiniBus"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KiniBus"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_primary"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Travel with Comfort"
+                    android:textSize="10sp"
+                    android:textColor="@color/blue_primary"
+                    android:alpha="0.7"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Profile Picture -->
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"
-            android:contentDescription="Profile picture"
-            android:clickable="true"
-            android:focusable="true" />
+        <!-- Enhanced Profile Section with Notification Badge -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="8dp">
+
+            <!-- Notification Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_info"
+                android:contentDescription="Notifications"
+                app:tint="@color/blue_primary"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Profile Picture with Badge -->
+            <RelativeLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Profile picture"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:elevation="4dp" />
+
+                <!-- Online Status Badge -->
+                <LinearLayout
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/setting_icon_background_green"
+                    android:gravity="center"
+                    android:layout_margin="2dp"
+                    android:elevation="2dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -144,7 +203,7 @@
                                 <ImageView
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:src="@drawable/ic_launcher_foreground"
+                                    android:src="@drawable/ic_location_on_24px"
                                     android:layout_centerVertical="true"
                                     android:layout_marginStart="16dp"
                                     android:contentDescription="Location icon"
@@ -173,18 +232,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp">
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/swap_button"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_centerHorizontal="true"
-                                app:cornerRadius="20dp"
-                                app:backgroundTint="@color/white"
-                                app:strokeColor="@color/gray_light"
-                                app:strokeWidth="1dp"
-                                app:icon="@drawable/ic_launcher_foreground"
-                                app:iconTint="@color/blue_primary"
-                                android:elevation="4dp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/swap_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerHorizontal="true"
+                            app:cornerRadius="20dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/gray_light"
+                            app:strokeWidth="1dp"
+                            app:icon="@drawable/swap_vertical_circle_24px"
+                            app:iconTint="@color/blue_primary"
+                            android:elevation="4dp" />
 
                         </RelativeLayout>
 
@@ -211,7 +270,7 @@
                                 <ImageView
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:src="@drawable/ic_launcher_foreground"
+                                    android:src="@drawable/ic_location_on_24px"
                                     android:layout_centerVertical="true"
                                     android:layout_marginStart="16dp"
                                     android:contentDescription="Destination icon"
@@ -257,7 +316,7 @@
                                 <ImageView
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:src="@drawable/ic_launcher_foreground"
+                                    android:src="@drawable/ic_calendar_today_24px"
                                     android:layout_centerVertical="true"
                                     android:layout_marginStart="16dp"
                                     android:contentDescription="Calendar icon"
@@ -292,9 +351,9 @@
                             app:cornerRadius="8dp"
                             app:backgroundTint="@color/blue_primary"
                             android:textColor="@color/white"
-                            android:drawableLeft="@drawable/ic_launcher_foreground"
+                            android:drawableLeft="@drawable/ic_search_24px"
                             android:padding="12dp"
-                            app:icon="@drawable/ic_launcher_foreground"
+                            app:icon="@drawable/ic_search_24px"
                             app:iconTint="@color/white"
                             app:iconGravity="textStart"
                             app:iconPadding="8dp" />
@@ -354,7 +413,9 @@
                         app:cardCornerRadius="8dp"
                         app:cardElevation="2dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        app:strokeColor="@color/gray_light"
+                        app:strokeWidth="1dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -363,14 +424,41 @@
                             android:padding="16dp"
                             android:gravity="center_vertical">
 
-                            <!-- City Image -->
+                    <!-- Enhanced City Image with Icon Overlay -->
+                    <RelativeLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/img_city_jakarta"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Jakarta image"
+                            android:elevation="2dp" />
+
+                        <!-- City Icon Overlay -->
+                        <LinearLayout
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/setting_icon_background_blue"
+                            android:gravity="center"
+                            android:layout_margin="2dp"
+                            android:elevation="3dp">
+
                             <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_launcher_background"
-                                android:scaleType="centerCrop"
-                                android:layout_marginEnd="16dp"
-                                android:contentDescription="Jakarta image" />
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@drawable/my_location_24px"
+                                android:contentDescription="Location pin"
+                                app:tint="@color/white" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
 
                             <!-- Content -->
                             <LinearLayout
@@ -397,7 +485,7 @@
                                     <ImageView
                                         android:layout_width="16dp"
                                         android:layout_height="16dp"
-                                        android:src="@drawable/ic_launcher_foreground"
+                                        android:src="@drawable/arrow_back_24px"
                                         android:layout_marginHorizontal="8dp"
                                         android:contentDescription="Arrow"
                                         app:tint="@color/gray" />
@@ -425,9 +513,10 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/arrow_back_24px"
                                 android:contentDescription="Chevron right"
-                                app:tint="@color/gray" />
+                                app:tint="@color/gray"
+                                android:rotation="180" />
 
                         </LinearLayout>
 
@@ -441,7 +530,9 @@
                         app:cardCornerRadius="8dp"
                         app:cardElevation="2dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        app:strokeColor="@color/gray_light"
+                        app:strokeWidth="1dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -450,14 +541,41 @@
                             android:padding="16dp"
                             android:gravity="center_vertical">
 
-                            <!-- City Image -->
+                    <!-- Enhanced City Image with Icon Overlay -->
+                    <RelativeLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/img_city_bandung"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Bandung image"
+                            android:elevation="2dp" />
+
+                        <!-- City Icon Overlay -->
+                        <LinearLayout
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/setting_icon_background_green"
+                            android:gravity="center"
+                            android:layout_margin="2dp"
+                            android:elevation="3dp">
+
                             <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_launcher_background"
-                                android:scaleType="centerCrop"
-                                android:layout_marginEnd="16dp"
-                                android:contentDescription="Bandung image" />
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@drawable/my_location_24px"
+                                android:contentDescription="Location pin"
+                                app:tint="@color/white" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
 
                             <!-- Content -->
                             <LinearLayout
@@ -484,7 +602,7 @@
                                     <ImageView
                                         android:layout_width="16dp"
                                         android:layout_height="16dp"
-                                        android:src="@drawable/ic_launcher_foreground"
+                                        android:src="@drawable/arrow_back_24px"
                                         android:layout_marginHorizontal="8dp"
                                         android:contentDescription="Arrow"
                                         app:tint="@color/gray" />
@@ -512,9 +630,10 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/arrow_back_24px"
                                 android:contentDescription="Chevron right"
-                                app:tint="@color/gray" />
+                                app:tint="@color/gray"
+                                android:rotation="180" />
 
                         </LinearLayout>
 
@@ -528,7 +647,9 @@
                         app:cardCornerRadius="8dp"
                         app:cardElevation="2dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        app:strokeColor="@color/gray_light"
+                        app:strokeWidth="1dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -537,14 +658,41 @@
                             android:padding="16dp"
                             android:gravity="center_vertical">
 
-                            <!-- City Image -->
+                    <!-- Enhanced City Image with Icon Overlay -->
+                    <RelativeLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginEnd="16dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/img_city_semarang"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Semarang image"
+                            android:elevation="2dp" />
+
+                        <!-- City Icon Overlay -->
+                        <LinearLayout
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/setting_icon_background_orange"
+                            android:gravity="center"
+                            android:layout_margin="2dp"
+                            android:elevation="3dp">
+
                             <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/ic_launcher_background"
-                                android:scaleType="centerCrop"
-                                android:layout_marginEnd="16dp"
-                                android:contentDescription="Semarang image" />
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:src="@drawable/my_location_24px"
+                                android:contentDescription="Location pin"
+                                app:tint="@color/white" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
 
                             <!-- Content -->
                             <LinearLayout
@@ -568,13 +716,15 @@
                                         android:textStyle="bold"
                                         android:textColor="@color/black" />
 
+                                    <!-- Enhanced Arrow with Better Icon -->
                                     <ImageView
-                                        android:layout_width="16dp"
-                                        android:layout_height="16dp"
-                                        android:src="@drawable/ic_launcher_foreground"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:src="@drawable/airport_shuttle_24px"
                                         android:layout_marginHorizontal="8dp"
-                                        android:contentDescription="Arrow"
-                                        app:tint="@color/gray" />
+                                        android:contentDescription="Bus route arrow"
+                                        app:tint="@color/blue_primary"
+                                        android:rotation="90" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -599,9 +749,10 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/arrow_back_24px"
                                 android:contentDescription="Chevron right"
-                                app:tint="@color/gray" />
+                                app:tint="@color/gray"
+                                android:rotation="180" />
 
                         </LinearLayout>
 
@@ -642,7 +793,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/ic_home_24px"
                 android:contentDescription="Home"
                 app:tint="@color/blue_primary" />
 
@@ -672,7 +823,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_logo"
+                android:src="@drawable/ic_ticket_24px"
                 android:contentDescription="Tickets"
                 app:tint="@color/gray" />
 
@@ -701,14 +852,14 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/ic_history_24px"
                 android:contentDescription="Notifications"
                 app:tint="@color/gray" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notif"
+                android:text="Riwayat"
                 android:textSize="10sp"
                 android:textColor="@color/gray" />
 
@@ -730,7 +881,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/person_24px"
                 android:contentDescription="Profile"
                 app:tint="@color/gray" />
 

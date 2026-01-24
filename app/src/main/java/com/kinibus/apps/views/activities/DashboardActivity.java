@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bus);
+        setContentView(R.layout.activity_dashboard);
 
         busRepository = new BusRepository();
         initializeViews();
@@ -225,9 +225,9 @@ public class DashboardActivity extends AppCompatActivity implements
 
     @Override
     public void onBusItemClicked(Bus bus) {
-        Intent intent = new Intent(this, DetailKursiActivity.class);
-        intent.putExtra("BUS_ID", bus.getId());
-        intent.putExtra("PASSENGERS", this.passengers);
+        // Navigate to Seat Selection Activity (new flow)
+        Intent intent = new Intent(this, SeatSelectionActivity.class);
+        intent.putExtra("bus", bus);
         startActivity(intent);
     }
 

@@ -1,15 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Primary Blue Colors (GoBus Style) -->
+    <color name="primary_blue">#007AFF</color>
+    <color name="primary_blue_dark">#0066CC</color>
+    <color name="primary_blue_light">#E6F3FF</color>
+    <color name="primary_blue_pressed">#0055AA</color>
+    
+    <!-- Background Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="overlay_dark">#80000000</color>
+    
+    <!-- Text Colors -->
+    <color name="text_dark">#1A1A1A</color>
+    <color name="text_medium">#6B6B6B</color>
+    <color name="text_light">#9E9E9E</color>
+    <color name="text_hint">#BDBDBD</color>
+    
+    <!-- Status Colors -->
+    <color name="success_green">#10B981</color>
+    <color name="success_green_light">#D1FAE5</color>
+    <color name="warning_amber">#F59E0B</color>
+    <color name="warning_amber_light">#FEF3C7</color>
+    <color name="error_red">#EF4444</color>
+    <color name="error_red_light">#FEE2E2</color>
+    <color name="info_blue">#3B82F6</color>
+    
+    <!-- Seat Selection Colors -->
+    <color name="seat_available">#FFFFFF</color>
+    <color name="seat_available_border">#E5E5E5</color>
+    <color name="seat_selected">#007AFF</color>
+    <color name="seat_booked">#E5E5E5</color>
+    <color name="seat_disabled">#F5F5F5</color>
+    
+    <!-- Divider & Border Colors -->
+    <color name="divider_light">#F0F0F0</color>
+    <color name="border_gray">#E0E0E0</color>
+    
+    <!-- Legacy Colors (kept for compatibility) -->
     <color name="red">#FFF44336</color>
-    <color name="blue_background">#FFFFFFFF</color>
-    <color name="blue_primary">#FF000000</color>
-    <color name="yellow_accent">#FF1976D2</color>
-    <color name="gray_secondary">#FF757575</color>
     <color name="gray">#FF9E9E9E</color>
     <color name="gray_light">#FFE0E0E0</color>
     <color name="green">#FF4CAF50</color>
-    <color name="green_primary">#FF4CAF50</color>
-    <color name="red_primary">#FFF44336</color>
+    
+    <!-- Deprecated - Use new naming convention -->
+    <color name="blue_background">@color/background_white</color>
+    <color name="blue_primary">@color/primary_blue</color>
+    <color name="yellow_accent">@color/warning_amber</color>
+    <color name="gray_secondary">@color/text_medium</color>
+    <color name="green_primary">@color/success_green</color>
+    <color name="red_primary">@color/error_red</color>
 </resources>
+

@@ -68,19 +68,37 @@ public class RegisterActivity extends AppCompatActivity {
             registerButton.setText(isLoading ? "Mendaftarkan..." : "Daftar Sekarang");
         });
 
-        // Observe authentication state
-        authViewModel.getIsAuthenticated().observe(this, isAuthenticated -> {
-            if (isAuthenticated) {
-                Log.d(TAG, "Registration successful, navigating to main screen");
-                Toast.makeText(this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
-                navigateToMainScreen();
-            }
-        });
-
         // Observe error messages
         authViewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 showError(errorMessage);
+            }
+        });
+    }
+    /**
+     * Perform registration validation and authentication
+     */
+    private void performRegistration() {
+        // Get input values
+        String fullName = fullNameInput.getText().toString().trim();
+        String email = emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
+        String confirmPassword = confirmPasswordInput.getText().toString().trim();
+
+        // Validate inputs
+        if (!validateInputs(fullName, email, password, confirmPassword)) {
+            return;
+        }
+
+        // Call actual registration through ViewModel
+        authViewModel.register(email, password, fullName, ""); // Empty phone number for now
+
+        // Observe authentication state only after registration is called
+        authViewModel.getIsAuthenticated().observe(this, isAuthenticated -> {
+            if (isAuthenticated) {
+                Log.d(TAG, "Registration successful, navigating to login screen");
+                Toast.makeText(this, "Pendaftaran berhasil! Silakan login dengan akun Anda.", Toast.LENGTH_SHORT).show();
+                navigateToMainScreen();
             }
         });
     }
@@ -143,33 +161,6 @@ public class RegisterActivity extends AppCompatActivity {
         passwordField.setSelection(passwordField.getText().length());
     }
 
-    /**
-     * Perform registration validation and authentication
-     */
-    private void performRegistration() {
-        // Get input values
-        String fullName = fullNameInput.getText().toString().trim();
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
-        String confirmPassword = confirmPasswordInput.getText().toString().trim();
-
-        // Validate inputs
-        if (!validateInputs(fullName, email, password, confirmPassword)) {
-            return;
-        }
-
-        // For demo purposes, show success message and navigate to LoginActivity
-        // In real app, this would register the user
-        Log.d(TAG, "Registration form submitted for: " + email);
-
-        Toast.makeText(this, "Form registrasi valid! Silakan login dengan akun yang dibuat.", Toast.LENGTH_LONG).show();
-
-        // Navigate back to LoginActivity instead of directly registering
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("FROM_REGISTER", true);
-        startActivity(intent);
-        finish();
-    }
 
     /**
      * Validate registration inputs
@@ -225,13 +216,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Navigate to dashboard after successful registration
+     * Navigate to login after successful registration
      */
     private void navigateToMainScreen() {
-        Toast.makeText(this, "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Pendaftaran berhasil! Silakan login dengan akun Anda.", Toast.LENGTH_SHORT).show();
 
-        // Navigate to Dashboard
-        Intent intent = new Intent(this, DashboardActivity.class);
+        // Navigate to LoginActivity instead of Dashboard
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("FROM_REGISTER", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

@@ -191,7 +191,7 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:src="@android:drawable/ic_menu_myplaces"
+                android:src="@drawable/ic_seat_24px"
                 app:tint="#FF7043" />
 
             <TextView

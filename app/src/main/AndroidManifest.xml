@@ -68,6 +68,34 @@
             android:label="Reset Password - KiniBus"
             android:screenOrientation="portrait" />
 
+        <!-- Seat Selection Activity (NEW) -->
+        <activity
+            android:name=".views.activities.SeatSelectionActivity"
+            android:exported="false"
+            android:label="Pilih Kursi - KiniBus"
+            android:screenOrientation="portrait" />
+
+        <!-- Booking Summary Activity (NEW) -->
+        <activity
+            android:name=".views.activities.BookingSummaryActivity"
+            android:exported="false"
+            android:label="Ringkasan Pemesanan - KiniBus"
+            android:screenOrientation="portrait" />
+
+        <!-- Payment Confirmation Activity (NEW) -->
+        <activity
+            android:name=".views.activities.PaymentConfirmationActivity"
+            android:exported="false"
+            android:label="Konfirmasi - KiniBus"
+            android:screenOrientation="portrait" />
+
+        <!-- E-Ticket Activity (NEW) -->
+        <activity
+            android:name=".views.activities.ETicketActivity"
+            android:exported="false"
+            android:label="E-Tiket - KiniBus"
+            android:screenOrientation="portrait" />
+
         <!-- Firebase Test Activity - SECONDARY untuk testing connection -->
         <activity
             android:name=".FirebaseTestActivity"

@@ -37,8 +37,8 @@ public class WelcomeActivity extends AppCompatActivity {
      * Initialize UI components
      */
     private void initializeViews() {
-        loginButton = findViewById(R.id.login_button);
-        registerButton = findViewById(R.id.register_button);
+        loginButton = findViewById(R.id.btn_login);
+        registerButton = findViewById(R.id.btn_register);
     }
 
     /**
@@ -55,12 +55,23 @@ public class WelcomeActivity extends AppCompatActivity {
         // Register button - navigate to RegisterActivity
         registerButton.setOnClickListener(v -> {
             Log.d(TAG, "Register button clicked - navigating to RegisterActivity");
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(this, RegisterActivity.class);
+                intent.putExtra("FROM_WELCOME", true); // Add flag to indicate coming from welcome screen
+                startActivity(intent);
+                Log.d(TAG, "Successfully started RegisterActivity");
+            } catch (Exception e) {
+                Log.e(TAG, "Failed to start RegisterActivity: " + e.getMessage());
+                e.printStackTrace();
+                // Fallback to LoginActivity if RegisterActivity fails
+                Intent fallbackIntent = new Intent(this, LoginActivity.class);
+                fallbackIntent.putExtra("REGISTER_MODE", true);
+                startActivity(fallbackIntent);
+            }
         });
 
         // Skip button - navigate directly to Dashboard (guest mode)
-        findViewById(R.id.skip_text).setOnClickListener(v -> {
+        findViewById(R.id.tv_skip).setOnClickListener(v -> {
             Log.d(TAG, "Skip button clicked - navigating to Dashboard (guest mode)");
             navigateToDashboard();
         });

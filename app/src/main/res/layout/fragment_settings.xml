@@ -217,7 +217,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/ic_info"
                             android:contentDescription="Notifications"
                             app:tint="@color/blue_primary"
                             android:layout_marginEnd="16dp" />
@@ -278,7 +278,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/ic_settings_24px"
                             android:contentDescription="Language"
                             app:tint="@color/blue_primary"
                             android:layout_marginEnd="16dp" />
@@ -357,7 +357,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/ic_info"
                             android:contentDescription="Help"
                             app:tint="@color/blue_primary"
                             android:layout_marginEnd="16dp" />
@@ -418,7 +418,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/person_24px"
                             android:contentDescription="Contact"
                             app:tint="@color/blue_primary"
                             android:layout_marginEnd="16dp" />
@@ -541,7 +541,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/ic_info"
                             android:contentDescription="Terms"
                             app:tint="@color/blue_primary"
                             android:layout_marginEnd="16dp" />

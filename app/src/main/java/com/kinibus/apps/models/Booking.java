@@ -1,10 +1,11 @@
 package com.kinibus.apps.models;
 
 import com.google.firebase.firestore.DocumentId;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Booking {
+public class Booking implements Serializable {
     @DocumentId
     private String id;
     private String userId;
@@ -19,6 +20,7 @@ public class Booking {
     private List<String> selectedSeats;
     private String bookingStatus; // "active", "completed", "cancelled"
     private String bookingId;
+    private String bookingCode;     // GB-XXXXXX format for ticket
     private Date createdAt;
     private Date updatedAt;
 
@@ -81,6 +83,9 @@ public class Booking {
 
     public String getBookingId() { return bookingId; }
     public void setBookingId(String bookingId) { this.bookingId = bookingId; }
+
+    public String getBookingCode() { return bookingCode; }
+    public void setBookingCode(String bookingCode) { this.bookingCode = bookingCode; }
 
     public Date getCreatedAt() { return createdAt; }
     public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }

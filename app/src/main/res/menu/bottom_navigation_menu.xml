@@ -3,19 +3,19 @@
     <item
         android:id="@+id/nav_home"
         android:title="Home"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_home_24px"
         android:enabled="true" />
 
     <item
         android:id="@+id/nav_booking"
         android:title="Booking"
-        android:icon="@drawable/airport_shuttle_24px"
+        android:icon="@drawable/ic_ticket_24px"
         android:enabled="true" />
 
     <item
         android:id="@+id/nav_history"
         android:title="History"
-        android:icon="@drawable/history_icon_background"
+        android:icon="@drawable/ic_history_24px"
         android:enabled="true" />
 
     <item
@@ -27,6 +27,6 @@
     <item
         android:id="@+id/nav_settings"
         android:title="Settings"
-        android:icon="@drawable/setting_icon_background_blue"
+        android:icon="@drawable/ic_settings_24px"
         android:enabled="true" />
 </menu>

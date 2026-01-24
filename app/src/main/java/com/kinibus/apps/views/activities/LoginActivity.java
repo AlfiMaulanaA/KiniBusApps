@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.kinibus.apps.MainActivity;
 import com.kinibus.apps.R;
 import com.kinibus.apps.helpers.GoogleSignInHelper;
+import com.kinibus.apps.helpers.ToastHelper;
 import com.kinibus.apps.repositories.AuthRepository;
 import com.kinibus.apps.viewmodels.AuthViewModel;
 
@@ -50,9 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         initializeViewModel();
         initializeGoogleSignIn();
         setupClickListeners();
-
-        // Check if user already logged in
-        checkCurrentUser();
 
         // Check for register mode from WelcomeActivity
         checkRegisterMode();
@@ -204,12 +202,14 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Check if user is already logged in
+     * Modified to not auto-login - user should choose to login first
      */
     private void checkCurrentUser() {
         if (authRepository.isAuthenticated.getValue() != null &&
             authRepository.isAuthenticated.getValue()) {
-            Log.d(TAG, "User already logged in, navigating to main screen");
-            navigateToMainScreen();
+            Log.d(TAG, "User already logged in, but showing login screen first");
+            // Don't auto-navigate - let user choose to login
+            ToastHelper.showInfoToast(this, "Anda sudah login sebelumnya. Klik Masuk untuk melanjutkan.");
         }
     }
 
@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean isRegisterMode = getIntent().getBooleanExtra("REGISTER_MODE", false);
         if (isRegisterMode) {
             Log.d(TAG, "User in register mode from WelcomeActivity");
-            Toast.makeText(this, "Mode pendaftaran - isi email dan password lalu klik register", Toast.LENGTH_LONG).show();
+            ToastHelper.showInfoToast(this, "Mode pendaftaran - isi email dan password lalu klik register");
         }
     }
 
@@ -231,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean fromRegister = getIntent().getBooleanExtra("FROM_REGISTER", false);
         if (fromRegister) {
             Log.d(TAG, "User came from successful registration");
-            Toast.makeText(this, "Registrasi berhasil! Silakan login dengan akun yang telah dibuat.", Toast.LENGTH_LONG).show();
+            ToastHelper.showSuccessToast(this, "Registrasi berhasil! Silakan login dengan akun yang telah dibuat.");
         }
     }
 
@@ -260,19 +260,19 @@ public class LoginActivity extends AppCompatActivity {
 
         // Email validation
         if (email.isEmpty()) {
-            Toast.makeText(this, "Email tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            ToastHelper.showErrorToast(this, "Email tidak boleh kosong");
             isValid = false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Format email tidak valid", Toast.LENGTH_SHORT).show();
+            ToastHelper.showErrorToast(this, "Format email tidak valid");
             isValid = false;
         }
 
         // Password validation
         if (password.isEmpty()) {
-            Toast.makeText(this, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            ToastHelper.showErrorToast(this, "Password tidak boleh kosong");
             isValid = false;
         } else if (password.length() < 6) {
-            Toast.makeText(this, "Password minimal 6 karakter", Toast.LENGTH_SHORT).show();
+            ToastHelper.showErrorToast(this, "Password minimal 6 karakter");
             isValid = false;
         }
 
@@ -280,10 +280,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
+     * Show custom styled toast message
+     */
+    private void showToast(String message) {
+        ToastHelper.showInfoToast(this, message);
+    }
+
+    /**
      * Show error message
      */
     private void showError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        ToastHelper.showErrorToast(this, message);
         Log.e(TAG, "Authentication error: " + message);
     }
 
@@ -291,7 +298,7 @@ public class LoginActivity extends AppCompatActivity {
      * Navigate to main screen with bottom navigation after successful authentication
      */
     private void navigateToMainScreen() {
-        Toast.makeText(this, "Login berhasil!", Toast.LENGTH_SHORT).show();
+        ToastHelper.showSuccessToast(this, "Login berhasil!");
 
         // Navigate to MainActivity with bottom navigation
         Intent intent = new Intent(this, MainActivity.class);
@@ -303,8 +310,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Check authentication state when activity becomes visible
-        checkCurrentUser();
+        // Don't auto-check authentication state - let user choose
     }
 
     @Override

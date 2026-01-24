@@ -90,24 +90,24 @@
                         android:background="@drawable/profile_circle_background"
                         android:contentDescription="Profile picture" />
 
-                    <!-- Edit Icon Overlay -->
-                    <LinearLayout
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:background="@drawable/edit_icon_background"
-                        android:gravity="center"
-                        android:layout_margin="4dp">
+                        <!-- Edit Icon Overlay -->
+                        <LinearLayout
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/edit_icon_background"
+                            android:gravity="center"
+                            android:layout_margin="4dp">
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_launcher_foreground"
-                            android:contentDescription="Edit"
-                            app:tint="@color/white" />
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_settings_24px"
+                                android:contentDescription="Edit"
+                                app:tint="@color/white" />
 
-                    </LinearLayout>
+                        </LinearLayout>
 
                 </RelativeLayout>
 
@@ -172,7 +172,7 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/airport_shuttle_24px"
                             android:layout_marginEnd="4dp"
                             android:contentDescription="Bus icon"
                             app:tint="@color/gray" />
@@ -219,7 +219,7 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:src="@drawable/ic_google_logo"
+                            android:src="@drawable/ic_ticket_24px"
                             android:layout_marginEnd="4dp"
                             android:contentDescription="Loyalty icon"
                             app:tint="@color/gray" />
@@ -352,7 +352,7 @@
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
-                                    android:src="@drawable/ic_launcher_foreground"
+                                    android:src="@drawable/ic_calendar_today_24px"
                                     android:layout_marginEnd="6dp"
                                     android:contentDescription="Calendar"
                                     app:tint="@color/white"
@@ -383,7 +383,7 @@
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
-                                    android:src="@drawable/ic_launcher_foreground"
+                                    android:src="@drawable/ic_schedule_24px"
                                     android:layout_marginEnd="6dp"
                                     android:contentDescription="Clock"
                                     app:tint="@color/white"
@@ -473,7 +473,7 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/airport_shuttle_24px"
                                 android:contentDescription="Bus icon"
                                 app:tint="@color/gray" />
 
@@ -539,7 +539,7 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/airport_shuttle_24px"
                                 android:contentDescription="Bus icon"
                                 app:tint="@color/gray" />
 
@@ -634,12 +634,12 @@
                             android:gravity="center"
                             android:layout_marginEnd="16dp">
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
-                                android:contentDescription="Person icon"
-                                app:tint="@color/blue_primary" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/person_24px"
+                            android:contentDescription="Person icon"
+                            app:tint="@color/blue_primary" />
 
                         </LinearLayout>
 
@@ -654,9 +654,10 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/arrow_back_24px"
                             android:contentDescription="Chevron right"
-                            app:tint="@color/gray" />
+                            app:tint="@color/gray"
+                            android:rotation="180" />
 
                     </LinearLayout>
 
@@ -679,11 +680,12 @@
                             android:gravity="center"
                             android:layout_marginEnd="16dp">
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_google_logo"
-                                android:contentDescription="Credit card icon" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_ticket_24px"
+                            android:contentDescription="Credit card icon"
+                            app:tint="@color/green_primary" />
 
                         </LinearLayout>
 
@@ -698,9 +700,10 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/arrow_back_24px"
                             android:contentDescription="Chevron right"
-                            app:tint="@color/gray" />
+                            app:tint="@color/gray"
+                            android:rotation="180" />
 
                     </LinearLayout>
 
@@ -723,12 +726,12 @@
                             android:gravity="center"
                             android:layout_marginEnd="16dp">
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
-                                android:contentDescription="Language icon"
-                                app:tint="#FF9800" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_settings_24px"
+                            android:contentDescription="Language icon"
+                            app:tint="#FF9800" />
 
                         </LinearLayout>
 
@@ -757,10 +760,10 @@
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
+                                android:src="@drawable/arrow_back_24px"
                                 android:contentDescription="Chevron right"
-                                app:tint="@color/gray" />
-
+                                app:tint="@color/gray"
+                                android:rotation="180" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -784,12 +787,12 @@
                             android:gravity="center"
                             android:layout_marginEnd="16dp">
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_launcher_foreground"
-                                android:contentDescription="Help icon"
-                                app:tint="#9C27B0" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_info"
+                            android:contentDescription="Help icon"
+                            app:tint="#9C27B0" />
 
                         </LinearLayout>
 
@@ -804,9 +807,10 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher_foreground"
+                            android:src="@drawable/arrow_back_24px"
                             android:contentDescription="Chevron right"
-                            app:tint="@color/gray" />
+                            app:tint="@color/gray"
+                            android:rotation="180" />
 
                     </LinearLayout>
 
@@ -822,19 +826,19 @@
                 android:paddingHorizontal="20dp"
                 android:paddingBottom="24dp">
 
-                <Button
-                    android:id="@+id/logout_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Keluar"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/red"
-                    android:background="@drawable/logout_button_background"
-                    android:drawableLeft="@drawable/ic_launcher_foreground"
-                    android:padding="14dp"
-                    android:layout_marginBottom="16dp"
-                    app:drawableTint="@color/red" />
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keluar"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:background="@drawable/logout_button_background"
+                android:drawableLeft="@drawable/ic_logout"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp"
+                app:drawableTint="@color/red" />
 
                 <!-- App Version -->
                 <TextView
@@ -879,12 +883,12 @@
             android:focusable="true"
             android:background="?android:attr/selectableItemBackground">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:contentDescription="Home"
-                app:tint="@color/gray" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_home_24px"
+                            android:contentDescription="Home"
+                            app:tint="@color/gray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -908,12 +912,12 @@
             android:focusable="true"
             android:background="?android:attr/selectableItemBackground">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:contentDescription="Schedule"
-                app:tint="@color/gray" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_schedule_24px"
+                            android:contentDescription="Schedule"
+                            app:tint="@color/gray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -940,7 +944,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_logo"
+                android:src="@drawable/ic_ticket_24px"
                 android:contentDescription="Tickets"
                 app:tint="@color/gray" />
 
@@ -963,12 +967,12 @@
             android:padding="8dp"
             android:background="@drawable/tab_selected_background">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:contentDescription="Profile"
-                app:tint="@color/blue_primary" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/person_24px"
+                            android:contentDescription="Profile"
+                            app:tint="@color/blue_primary" />
 
             <TextView
                 android:layout_width="wrap_content"

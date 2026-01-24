@@ -1,19 +1,105 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.KiniBusApps" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/yellow_accent</item>
-        <item name="colorPrimaryVariant">@color/yellow_accent</item>
+        <!-- Primary Colors - GoBus Blue -->
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/blue_primary</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/success_green</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="android:colorBackground">@color/blue_background</item>
-        <item name="colorOnBackground">@color/blue_primary</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurface">@color/blue_primary</item>
-        <item name="colorError">@color/red</item>
+        
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/background_light</item>
+        <item name="colorOnBackground">@color/text_dark</item>
+        
+        <!-- Surface Colors -->
+        <item name="colorSurface">@color/card_background</item>
+        <item name="colorOnSurface">@color/text_dark</item>
+        
+        <!-- Error Colors -->
+        <item name="colorError">@color/error_red</item>
         <item name="colorOnError">@color/white</item>
+        
+        <!-- Status Bar & Navigation Bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        
+        <!-- Window Configuration -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="Theme.KiniBusApps" parent="Base.Theme.KiniBusApps" />
+    
+    <!-- Button Styles -->
+    <style name="Widget.KiniBus.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/primary_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+    
+    <style name="Widget.KiniBus.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/primary_blue</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="android:textColor">@color/primary_blue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+    
+    <!-- Text Styles Base Parents -->
+    <style name="TextAppearance.KiniBus" parent="TextAppearance.AppCompat" />
+    <style name="TextAppearance.KiniBus.Headline" parent="TextAppearance.KiniBus" />
+    <style name="TextAppearance.KiniBus.Body" parent="TextAppearance.KiniBus" />
+    
+    <!-- Text Styles -->
+    <style name="TextAppearance.KiniBus.Headline.Large">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+    
+    <style name="TextAppearance.KiniBus.Headline.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+    
+    <style name="TextAppearance.KiniBus.Body.Large">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_medium</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.KiniBus.Body.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_medium</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.KiniBus.Price">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primary_blue</item>
+        <item name="android:fontFamily">sans-serif-black</item>
+    </style>
+    
+    <!-- Card Style -->
+    <style name="Widget.KiniBus.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
 </resources>
+

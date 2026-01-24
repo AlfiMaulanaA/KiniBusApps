@@ -98,7 +98,11 @@ public class BusAdapter extends RecyclerView.Adapter<BusAdapter.BusViewHolder> {
                 tvSeatsLeft.setText(itemView.getContext().getString(R.string.seats_left_format, bus.getKursiTersedia()));
                 tvSeatsLeft.setTextColor(ContextCompat.getColor(itemView.getContext(), android.R.color.holo_orange_dark));
                 itemView.setAlpha(1.0f);
-                itemView.setOnClickListener(v -> listener.onBusItemClicked(bus));
+                itemView.setOnClickListener(v -> {
+                    if (listener != null) {
+                        listener.onBusItemClicked(bus);
+                    }
+                });
             } else {
                 if (!bus.isTersedia()) {
                     tvSeatsLeft.setText(itemView.getContext().getString(R.string.not_available));
