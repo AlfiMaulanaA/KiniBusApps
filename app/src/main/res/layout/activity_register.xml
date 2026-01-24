@@ -14,16 +14,17 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <!-- Top Navigation -->
+        <!-- Top Navigation - Enhanced -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
             android:gravity="center_vertical"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:elevation="4dp">
 
-            <!-- Back Button -->
+            <!-- Back Button - Enhanced -->
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="40dp"
@@ -31,13 +32,37 @@
                 android:src="@drawable/ic_arrow_back"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back"
-                app:tint="@color/black" />
+                app:tint="@color/blue_primary"
+                android:elevation="2dp" />
 
-            <!-- Center Spacer -->
-            <View
+            <!-- Enhanced Title -->
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daftar Akun"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_primary"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mulai petualanganmu"
+                    android:textSize="12sp"
+                    android:textColor="@color/blue_primary"
+                    android:alpha="0.7"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
 
             <!-- Right Spacer for balance -->
             <View
@@ -62,7 +87,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp">
 
-                <!-- Hero Image - Fixed to use actual hero image -->
+                <!-- Hero Image - Enhanced with branding -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
@@ -81,13 +106,32 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/gradient_overlay" />
 
+                    <!-- Branding Logo Overlay -->
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/logo_background"
+                        android:gravity="center"
+                        android:elevation="4dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/airport_shuttle_24px"
+                            android:contentDescription="KiniBus logo"
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
+
                 </RelativeLayout>
 
-                <!-- Header Text -->
+                <!-- Header Text - Enhanced -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -96,7 +140,8 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="sans-serif-medium" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -105,6 +150,14 @@
                         android:textSize="16sp"
                         android:textColor="@color/gray"
                         android:alpha="0.8" />
+
+                    <!-- Decorative Divider -->
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/setting_icon_background_blue"
+                        android:elevation="2dp" />
 
                 </LinearLayout>
 
@@ -138,14 +191,24 @@
                         android:background="@drawable/edit_text_background"
                         android:layout_marginBottom="8dp">
 
+                    <!-- Enhanced Person Icon -->
+                    <LinearLayout
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/setting_icon_background_blue"
+                        android:gravity="center"
+                        android:elevation="2dp">
+
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_launcher_foreground"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="16dp"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/person_24px"
                             android:contentDescription="Person icon"
-                            app:tint="@color/gray" />
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/full_name_input"
@@ -187,14 +250,24 @@
                         android:background="@drawable/edit_text_background"
                         android:layout_marginBottom="8dp">
 
+                    <!-- Enhanced Email Icon -->
+                    <LinearLayout
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/setting_icon_background_green"
+                        android:gravity="center"
+                        android:elevation="2dp">
+
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_google_logo"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="16dp"
-                            android:contentDescription="Mail icon"
-                            app:tint="@color/gray" />
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_launcher_foreground"
+                            android:contentDescription="Email icon"
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/email_input"
@@ -236,14 +309,24 @@
                         android:background="@drawable/edit_text_background"
                         android:layout_marginBottom="8dp">
 
+                    <!-- Enhanced Lock Icon -->
+                    <LinearLayout
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/setting_icon_background_orange"
+                        android:gravity="center"
+                        android:elevation="2dp">
+
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
                             android:src="@drawable/ic_lock"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="16dp"
                             android:contentDescription="Lock icon"
-                            app:tint="@color/gray" />
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/password_input"
@@ -259,17 +342,29 @@
                             android:textSize="16sp"
                             android:maxLines="1" />
 
+                    <!-- Enhanced Password Toggle -->
+                    <LinearLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/setting_icon_background_purple"
+                        android:gravity="center"
+                        android:elevation="2dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
                         <ImageButton
                             android:id="@+id/password_toggle"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="16dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/ic_launcher_foreground"
                             android:background="?android:attr/selectableItemBackgroundBorderless"
                             android:contentDescription="Toggle password visibility"
-                            app:tint="@color/gray" />
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
 
                     </RelativeLayout>
 
@@ -320,17 +415,29 @@
                             android:textSize="16sp"
                             android:maxLines="1" />
 
+                    <!-- Enhanced Confirm Password Toggle -->
+                    <LinearLayout
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/setting_icon_background_purple"
+                        android:gravity="center"
+                        android:elevation="2dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
                         <ImageButton
                             android:id="@+id/confirm_password_toggle"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="16dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/ic_launcher_foreground"
                             android:background="?android:attr/selectableItemBackgroundBorderless"
                             android:contentDescription="Toggle confirm password visibility"
-                            app:tint="@color/gray" />
+                            app:tint="@color/white" />
+
+                    </LinearLayout>
 
                     </RelativeLayout>
 
@@ -344,6 +451,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp">
 
+                    <!-- Enhanced Register Button -->
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/register_button"
                         android:layout_width="match_parent"
@@ -355,7 +463,12 @@
                         app:cornerRadius="12dp"
                         app:backgroundTint="@color/blue_primary"
                         android:textColor="@color/white"
-                        android:elevation="4dp" />
+                        android:elevation="6dp"
+                        android:drawableLeft="@drawable/person_24px"
+                        app:icon="@drawable/person_24px"
+                        app:iconTint="@color/white"
+                        app:iconGravity="textStart"
+                        app:iconPadding="12dp" />
 
                 </LinearLayout>
 

@@ -6,3 +6,7 @@
 6. pada halaman settings perbaiki juga icon iconnya dan ui stylenya agar lebih baik
 
 analisa pada halaman register, kenapa image pada halamn tersebut tidak muncul? padahl imagenya ada, apa ada salah metode menggunakan imagenya? coba cek lgi, dan kmu bisa analisa pada halaman login yg berhasil menampilkan image
+
+pada halkaman dashboard ada 5 tabs bottom naviagtion, home, booking, history, profile, settings.
+
+modifkasi juga apada setiap halaman lain agar punya 5 tabs juga yang sama dan typical, karena saya lihat banyak tabs yg baru lagi ditiap halaman
